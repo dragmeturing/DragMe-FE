@@ -10,7 +10,7 @@ export default function ResultCard(props) {
   return (
     <TouchableHighlight
       style={card}
-      onPress={() => this.props.navigate("Shows", { id })}
+      onPress={() => props.navigate("Show", { id })}
     >
       <ImageBackground
         source={{ uri: props.data.poster_url }}
