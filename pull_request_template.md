@@ -33,6 +33,3 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented on my code, particularly in hard-to-understand areas
 
-
-Co-authored-by: B-Coyle <bacoyle0409@gmail.com>
-Co-authored-by: jacobogart <jacobogart@gmail.com>
