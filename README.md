@@ -14,3 +14,6 @@
 * Make sure your mobile device and server are connected to the same WiFi router.\
 * Use your camera to scan the provided QR code.\
 * Click the prompt to open Expo
+
+## Wire Frames
+![Wire Frames](https://user-images.githubusercontent.com/45608610/61236972-91375900-a6f6-11e9-8aba-fe134206b02d.jpg)
