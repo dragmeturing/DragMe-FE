@@ -4,8 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
-// import { rootRecuer } from './reducers'
+import { rootReducer } from './reducers'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -13,9 +12,8 @@ import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
-  // const store = createStore(rootReducer) 
-  //add store to provider
+  const store = createStore(rootReducer) 
+  
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -29,7 +27,7 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <Provider>
+        <Provider store={store}>
           <AppNavigator />
         </Provider>
       </View>
