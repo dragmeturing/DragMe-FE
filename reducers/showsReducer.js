@@ -1,6 +1,6 @@
 export const showsReducer = (state = [], action) => {
   switch (action.type) {
-    case 'UPDATE_SHOWS':
+    case 'GET_SHOWS':
       return action.shows
 
      default: 
