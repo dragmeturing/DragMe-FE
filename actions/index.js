@@ -1,7 +1,7 @@
-export const addShow = (show) => ({
-  type: 'ADD_SHOW',
-  show
-});
+export const updateShows = (shows) => ({
+  type: 'UPDATE_SHOWS',
+  shows
+})
 
 export const setLoading = (bool) => ({
   type: 'SET_LOADING',
