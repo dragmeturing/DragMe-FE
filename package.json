@@ -15,6 +15,7 @@
     "@expo/samples": "~3.0.0",
     "@expo/vector-icons": "^10.0.1",
     "@react-navigation/web": "^1.0.0-alpha.9",
+    "date-and-time": "^0.8.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "expo": "^33.0.0",
