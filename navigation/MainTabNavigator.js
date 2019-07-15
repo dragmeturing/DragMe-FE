@@ -4,8 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ResultsScreen from '../screens/ResultsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import { primaryColor } from '../constants/Colors';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -35,21 +36,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const ShowsStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Results: ResultsScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+ShowsStack.navigationOptions = {
+  tabBarLabel: "Shows",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
 };
 
-LinksStack.path = '';
+ShowsStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -67,11 +71,27 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabBarOptions = {
+  activeTintColor: "#F2BD61",
+  activeBackgroundColor: "#A898C4",
+  style: {
+    backgroundColor: primaryColor
+  },
+  navigationOptions: {
+    headerStyle: {
+      tintColor: "magenta"
+    }
+  }
+};
+
+const tabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    ShowsStack,
+    SettingsStack
+  },
+  { tabBarOptions }
+);
 
 tabNavigator.path = '';
 
