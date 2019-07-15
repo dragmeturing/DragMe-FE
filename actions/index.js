@@ -1,10 +1,10 @@
-export const updateShows = (shows) => ({
-  type: 'UPDATE_SHOWS',
+export const getShows = (shows) => ({
+  type: 'GET_SHOWS',
   shows
 })
 
-export const setLoading = (bool) => ({
-  type: 'SET_LOADING',
+export const isLoading = (bool) => ({
+  type: 'IS_LOADING',
   bool
 });
 
