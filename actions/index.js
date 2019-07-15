@@ -1,5 +1,5 @@
-export const updateShows = (shows) => ({
-  type: 'UPDATE_SHOWS',
+export const getShows = (shows) => ({
+  type: 'GET_SHOWS',
   shows
 })
 
