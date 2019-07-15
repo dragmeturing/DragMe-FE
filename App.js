@@ -5,10 +5,17 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+// import { rootRecuer } from './reducers'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  // const store = createStore(rootReducer) 
+  //add store to provider
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -22,7 +29,9 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        <Provider>
+          <AppNavigator />
+        </Provider>
       </View>
     );
   }
