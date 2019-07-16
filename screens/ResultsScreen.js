@@ -4,8 +4,15 @@ import { shows } from "../mockData";
 import ResultCard from "../components/ResultCard";
 import { mainStyles } from "../constants/mainStyles";
 import { primaryColor } from "../constants/Colors";
+import { fetchShows } from '../thunks/fetchShows';
+import { connect } from 'react-redux';
 
-export default class ResultsScreen extends Component {
+export class ResultsScreen extends Component {
+
+  componentDidMount() {
+    this.props.fetchShows()
+  }
+
   render() {
     const { container } = mainStyles;
     const results = shows.map(show => (
@@ -25,3 +32,14 @@ ResultsScreen.navigationOptions = {
     backgroundColor: primaryColor
   }
 };
+
+
+export const mapStateToProps = ({ shows }) => {
+  shows
+};
+
+export const mapDispatchToProps = (dispatch) => ({
+  fetchShows: shows => dispatch(fetchShows(shows))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsScreen);
