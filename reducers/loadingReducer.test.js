@@ -11,11 +11,11 @@
     });
 
     it('should change is loading on the state tree', () => {
-      const bool = true;
-      const action = actions.isLoading(bool);
+      const expected = true;
+      const action = actions.isLoading(true);
   
       const result = loadingReducer(undefined, action);
    
-      expect(result).toEqual(true);
+      expect(result).toEqual(expected);
     });
  });
