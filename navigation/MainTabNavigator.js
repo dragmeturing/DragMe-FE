@@ -6,7 +6,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ResultsScreen from '../screens/ResultsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { primaryColor } from '../constants/Colors';
+import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
+import ShowScreen from '../screens/ShowScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -39,6 +40,7 @@ HomeStack.path = '';
 const ShowsStack = createStackNavigator(
   {
     Results: ResultsScreen,
+    Show: ShowScreen
   },
   config
 );
@@ -72,16 +74,11 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabBarOptions = {
-  activeTintColor: "#F2BD61",
-  activeBackgroundColor: "#A898C4",
+  activeTintColor: accentColor,
+  activeBackgroundColor: secondaryColor,
   style: {
     backgroundColor: primaryColor
   },
-  navigationOptions: {
-    headerStyle: {
-      tintColor: "magenta"
-    }
-  }
 };
 
 const tabNavigator = createBottomTabNavigator(
