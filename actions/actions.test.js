@@ -1,7 +1,6 @@
 import * as actions from './index'
 
-describe.only('actions', () => {
-
+describe('actions', () => {
 
   it('should get all shows', () => {
     const shows = [{title:'drag race'}, {title:'a real drag'}];
@@ -22,6 +21,7 @@ describe.only('actions', () => {
       type: 'IS_LOADING',
       bool
     };
+    
     const result = actions.isLoading(bool);
 
     expect(result).toEqual(expected);
