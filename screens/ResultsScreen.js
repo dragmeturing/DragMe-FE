@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { shows } from "../mockData";
 import ResultCard from "../components/ResultCard";
 import { mainStyles } from "../constants/mainStyles";
 import { primaryColor } from "../constants/Colors";
@@ -8,14 +7,18 @@ import { fetchShows } from '../thunks/fetchShows';
 import { connect } from 'react-redux';
 
 export class ResultsScreen extends Component {
+  constructor(props) {
+    super(props)
+  }
 
   componentDidMount() {
     this.props.fetchShows()
   }
 
   render() {
+    const { shows } = this.props
     const { container } = mainStyles;
-    const results = shows.map(show => (
+    const results = shows.objects.map(show => (
       <ResultCard
         key={show.id}
         data={show}
