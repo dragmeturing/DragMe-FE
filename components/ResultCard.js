@@ -1,8 +1,9 @@
 import React from 'react';
 import { TouchableHighlight, Text, View, ImageBackground, StyleSheet } from 'react-native';
 import { cleanDate, cleanTime } from './helper';
+import { withNavigation } from "react-navigation";
 
-export default function ResultCard(props) {
+const ResultCard = (props) => {
   const { id, name, venue_name, poster_url } = props.data;
   const { resultText, card, header, textHolder } = localStyles;
   const date = cleanDate(props.data.date);
@@ -10,7 +11,7 @@ export default function ResultCard(props) {
   return (
     <TouchableHighlight
       style={card}
-      onPress={() => props.navigate("Show", { id })}
+      onPress={() => props.navigation.navigate("Show", { id })}
     >
       <ImageBackground
         source={{ uri: poster_url }}
@@ -50,3 +51,4 @@ const localStyles = StyleSheet.create({
   }
 });
   
+export default withNavigation(ResultCard);

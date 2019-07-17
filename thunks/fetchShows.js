@@ -11,9 +11,8 @@ export const fetchShows = () => {
         throw Error(response.statusText);
       }
       const shows = await response.json();
-      dispatch(getShows(shows));
+      dispatch(getShows(shows.objects));
       dispatch(isLoading(false));
-      console.log('shows in fetch',shows)
     } catch (error) {
       dispatch(setError(error.error));
     }
