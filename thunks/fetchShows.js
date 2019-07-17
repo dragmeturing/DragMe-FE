@@ -13,7 +13,7 @@ export const fetchShows = () => {
       const shows = await response.json();
       dispatch(getShows(shows));
       dispatch(isLoading(false));
-      console.log('shows log',shows)
+      console.log('shows in fetch',shows)
     } catch (error) {
       dispatch(setError(error.error));
     }

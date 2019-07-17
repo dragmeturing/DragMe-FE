@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import ResultCard from "../components/ResultCard";
 import { mainStyles } from "../constants/mainStyles";
-import { primaryColor } from "../constants/Colors";
+import { primaryColor, accentColor } from "../constants/Colors";
 import { fetchShows } from '../thunks/fetchShows';
 import { connect } from 'react-redux';
 
@@ -13,21 +13,24 @@ export class ResultsScreen extends Component {
 
   componentDidMount() {
     this.props.fetchShows()
-  }
+  };
 
   render() {
     const { shows } = this.props
     const { container } = mainStyles;
-    const results = shows.objects.map(show => (
+    const results = shows.length 
+    ? shows.objects.map(show => (
       <ResultCard
         key={show.id}
         data={show}
         navtigate={this.props.navigation.navigate}
-      />
-    ));
+        />
+      ))
+    : <ActivityIndicator size="large" color={accentColor} />;
+
     return <ScrollView contentContainerStyle={container}>{results}</ScrollView>;
-  }
-}
+  };
+};
 
 ResultsScreen.navigationOptions = {
   title: "Shows",
@@ -37,8 +40,9 @@ ResultsScreen.navigationOptions = {
 };
 
 
-export const mapStateToProps = ({ shows }) => {
-  shows
+export const mapStateToProps = (state) => {
+  console.log('state', state)
+  return ({shows: state.shows})
 };
 
 export const mapDispatchToProps = (dispatch) => ({
