@@ -1,5 +1,5 @@
- import { loadingReducer } from './loadingReducer';
- import * as actions from '../actions';
+ import { loadingReducer } from '../loadingReducer';
+ import * as actions from '../../actions';
 
  describe ('isLoadingReducer', () => {
 

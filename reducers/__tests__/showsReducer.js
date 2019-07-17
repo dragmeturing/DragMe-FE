@@ -1,5 +1,5 @@
- import { showsReducer } from './showsReducer';
- import * as actions from '../actions';
+ import { showsReducer } from '../showsReducer';
+ import * as actions from '../../actions';
 
 describe('showsReducer', () => {
    const shows = [{title:'drag race'}, {title:'a real drag'}];
