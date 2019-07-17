@@ -2,8 +2,8 @@ import { setError, isLoading, getShows } from "../actions/index";
 
 export const fetchShows = () => {
   return async dispatch => {
-    const url = "";
-    //need to add in URL
+    const url = "https://dragme-be.herokuapp.com/api/show";
+   
     try {
       dispatch(isLoading(true));
       const response = await fetch(url);
@@ -11,7 +11,7 @@ export const fetchShows = () => {
         throw Error(response.statusText);
       }
       const shows = await response.json();
-      dispatch(getShows(shows));
+      dispatch(getShows(shows.objects));
       dispatch(isLoading(false));
     } catch (error) {
       dispatch(setError(error.error));

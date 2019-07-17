@@ -5,23 +5,28 @@ import { mainStyles } from "../constants/mainStyles";
 import { primaryColor } from "../constants/Colors";
 import { header } from "../components/header";
 import { cleanDate, cleanTime } from "../components/helper";
+import { connect } from "react-redux";
 
-export default class ShowScreen extends Component {
+class ShowScreen extends Component {
   render() {
-    const props = {
-      data: shows[0]
-    };
-    const { id, name, venue_name, poster_url, description } = props.data;
+    const id = this.props.navigation.getParam("id");
+    const {
+      name,
+      venue_name,
+      poster_url,
+      description,
+      date
+    } = this.props.shows.find(show => show.id === id);
     const { container } = mainStyles;
     const { resultText, card, header, textHolder, scroll } = localStyles;
-    const date = cleanDate(props.data.date);
-    const time = cleanTime(props.data.date);
+    const dateToRender = cleanDate(date);
+    const time = cleanTime(date);
     return (
       <ScrollView contentContainerStyle={[container, scroll]}>
         <View style={textHolder}>
           <Text style={[resultText, header]}>{name}</Text>
           <Text style={[resultText]}>
-            {date} - {time}
+            {dateToRender} - {time}
           </Text>
           <Text style={[resultText]}>{venue_name}</Text>
         </View>
@@ -38,7 +43,8 @@ export default class ShowScreen extends Component {
 
 const localStyles = StyleSheet.create({
   scroll: {
-    height: '100%'
+    flex: 0,
+    height: "150%"
   },
   resultText: {
     color: "white",
@@ -54,10 +60,16 @@ const localStyles = StyleSheet.create({
   },
   textHolder: {
     display: "flex",
-    height: 180,
+    height: 250,
     justifyContent: "space-around",
     padding: 10
   }
 });
 
 ShowScreen.navigationOptions = header;
+
+export const mapStateToProps = state => ({
+  shows: state.shows
+});
+
+export default connect(mapStateToProps)(ShowScreen);
