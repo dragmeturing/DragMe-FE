@@ -1,0 +1,1 @@
+export const BEUrl = 'https://dragme-be.herokuapp.com/api';

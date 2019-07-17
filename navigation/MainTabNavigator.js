@@ -5,7 +5,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ResultsScreen from '../screens/ResultsScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AddShowScreen from '../screens/AddShowScreen';
 import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
 import ShowScreen from '../screens/ShowScreen';
 
@@ -57,21 +57,21 @@ ShowsStack.navigationOptions = {
 
 ShowsStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const AddShowStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    AddShow: AddShowScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+AddShowStack.navigationOptions = {
+  tabBarLabel: 'Add Show',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+AddShowStack.path = '';
 
 const tabBarOptions = {
   activeTintColor: accentColor,
@@ -85,7 +85,7 @@ const tabNavigator = createBottomTabNavigator(
   {
     HomeStack,
     ShowsStack,
-    SettingsStack
+    AddShowStack
   },
   { tabBarOptions }
 );
