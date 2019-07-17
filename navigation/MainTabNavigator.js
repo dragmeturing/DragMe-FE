@@ -5,8 +5,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ResultsScreen from '../screens/ResultsScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import { primaryColor } from '../constants/Colors';
+import AddShowScreen from '../screens/AddShowScreen';
+import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
+import ShowScreen from '../screens/ShowScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -39,6 +40,7 @@ HomeStack.path = '';
 const ShowsStack = createStackNavigator(
   {
     Results: ResultsScreen,
+    Show: ShowScreen
   },
   config
 );
@@ -55,40 +57,35 @@ ShowsStack.navigationOptions = {
 
 ShowsStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const AddShowStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    AddShow: AddShowScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+AddShowStack.navigationOptions = {
+  tabBarLabel: 'Add Show',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
 };
 
-SettingsStack.path = '';
+AddShowStack.path = '';
 
 const tabBarOptions = {
-  activeTintColor: "#F2BD61",
-  activeBackgroundColor: "#A898C4",
+  activeTintColor: accentColor,
+  activeBackgroundColor: secondaryColor,
   style: {
     backgroundColor: primaryColor
   },
-  navigationOptions: {
-    headerStyle: {
-      tintColor: "magenta"
-    }
-  }
 };
 
 const tabNavigator = createBottomTabNavigator(
   {
     HomeStack,
     ShowsStack,
-    SettingsStack
+    AddShowStack
   },
   { tabBarOptions }
 );

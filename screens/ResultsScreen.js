@@ -5,6 +5,7 @@ import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor } from "../constants/Colors";
 import { fetchShows } from '../thunks/fetchShows';
 import { connect } from 'react-redux';
+import { header } from "../components/header";
 
 export class ResultsScreen extends Component {
   constructor(props) {
@@ -32,14 +33,6 @@ export class ResultsScreen extends Component {
   };
 };
 
-ResultsScreen.navigationOptions = {
-  title: "Shows",
-  headerStyle: {
-    backgroundColor: primaryColor
-  }
-};
-
-
 export const mapStateToProps = (state) => {
   console.log('state', state)
   return ({shows: state.shows})
@@ -50,3 +43,5 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsScreen);
+
+ResultsScreen.navigationOptions = header;
