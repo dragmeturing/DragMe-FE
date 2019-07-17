@@ -17,15 +17,14 @@ export class ResultsScreen extends Component {
   };
 
   render() {
-    const { shows } = this.props
+    const { shows } = this.props;
     const { container } = mainStyles;
     const results = shows.length 
-    ? shows.objects.map(show => (
+    ? shows.map(show => (
       <ResultCard
         key={show.id}
         data={show}
-        navtigate={this.props.navigation.navigate}
-        />
+      />
       ))
     : <ActivityIndicator size="large" color={accentColor} />;
 
@@ -33,10 +32,11 @@ export class ResultsScreen extends Component {
   };
 };
 
-export const mapStateToProps = (state) => {
-  console.log('state', state)
-  return ({shows: state.shows})
-};
+ResultsScreen.navigationOptions = header;
+
+export const mapStateToProps = (state) => ({
+  shows: state.shows
+});
 
 export const mapDispatchToProps = (dispatch) => ({
   fetchShows: shows => dispatch(fetchShows(shows))
@@ -44,4 +44,3 @@ export const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsScreen);
 
-ResultsScreen.navigationOptions = header;
