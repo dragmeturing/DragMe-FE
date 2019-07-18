@@ -15,7 +15,8 @@ const ResultCard = (props) => {
     >
       <ImageBackground
         source={{ uri: poster_url }}
-        style={{ width: "100%", height: "100%", opacity: 0.9 }}
+        style={{ width: "100%", height: "100%" }}
+        imageStyle={{ opacity: 0.7 }}
         blurRadius={7}
       >
         <View style={textHolder}>
@@ -32,21 +33,22 @@ const ResultCard = (props) => {
 
 const localStyles = StyleSheet.create({
   resultText: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
     fontSize: 24
   },
   header: {
-    fontSize: 40
+    fontSize: 32
   },
   card: {
     marginVertical: 3,
     height: 150,
+    backgroundColor: "black"
   },
   textHolder: {
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'space-around',
+    display: "flex",
+    height: "100%",
+    justifyContent: "space-around",
     padding: 10
   }
 });

@@ -1,6 +1,7 @@
 import { BEUrl } from "./utilities";
 
 export const postShow = (show) => {
+  console.log('show', show);
   const url = `${BEUrl}/show/`
   const options = {
     method: "POST",

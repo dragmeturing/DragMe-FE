@@ -50,7 +50,7 @@ ShowsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={"ios-star"}
     />
   )
 };
@@ -67,7 +67,7 @@ const AddShowStack = createStackNavigator(
 AddShowStack.navigationOptions = {
   tabBarLabel: 'Add Show',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name={'ios-add'} />
   ),
 };
 
@@ -83,7 +83,7 @@ const tabBarOptions = {
 
 const tabNavigator = createBottomTabNavigator(
   {
-    HomeStack,
+    // HomeStack,
     ShowsStack,
     AddShowStack
   },

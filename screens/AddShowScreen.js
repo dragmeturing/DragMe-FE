@@ -9,8 +9,7 @@ import {
   DatePickerIOS,
   TouchableHighlight,
   TouchableOpacity,
-  ActivityIndicator,
-  TouchableWithoutFeedback
+  ActivityIndicator
 } from "react-native";
 import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor, secondaryColor } from "../constants/Colors";
@@ -20,13 +19,14 @@ import * as Permissions from "expo-permissions";
 import { postPhoto } from "../api/postPhoto";
 import { postShow } from "../api/postShow";
 import { cleanTimeJS } from "../components/helper";
+import { fetchVenueData } from "../api/fetchVenueData";
 
 export default class AddShowScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      venue: "",
+      venueInput: "",
       date: new Date(),
       description: "",
       posterUrl: "",
@@ -34,7 +34,9 @@ export default class AddShowScreen extends Component {
       showDatePicker: false,
       displayDate: "Date",
       photo: null,
-      isUploading: false
+      isUploading: false,
+      venueResults: [],
+      dateInputStyle: {}
     };
   }
 
@@ -65,7 +67,7 @@ export default class AddShowScreen extends Component {
     let displayDate = `${this.state.date.toDateString()} ${cleanTimeJS(
       this.state.date
     )}`;
-    this.setState({ date, displayDate });
+    this.setState({ date, displayDate, dateInputStyle: { color: "black" } });
   };
 
   handleUploadImage = async () => {
@@ -88,16 +90,41 @@ export default class AddShowScreen extends Component {
     }
   };
 
+  findVenue = text => {
+    this.setState({ venueInput: text });
+    fetchVenueData(text).then(venueResults => {
+      this.setState({ venueResults });
+    });
+  };
+
+  selectVenue = result => {
+    const { venue_name, venue_google_id } = result;
+    this.setState({
+      venueInput: venue_name,
+      venueResults: [],
+      venue_name,
+      venue_google_id
+    });
+  };
+
   handleSubmit = () => {
-    const { name, venue, description, date, posterUrl, eventUrl } = this.state;
+    const {
+      name,
+      description,
+      date,
+      posterUrl,
+      eventUrl,
+      venue_name,
+      venue_google_id
+    } = this.state;
     const show = {
       name,
       description,
       event_url: eventUrl,
       date,
       poster_url: posterUrl,
-      venue_name: venue,
-      venue_google_id: 666666666
+      venue_name,
+      venue_google_id
     };
     postShow(show).then(result => console.log(result));
   };
@@ -110,26 +137,39 @@ export default class AddShowScreen extends Component {
       button,
       datePlaceholder,
       buttonText,
-      datePickerStyle
+      datePickerStyle,
+      resultsHolder,
+      venueResult,
+      resultText,
+      searchHolder
     } = localStyles;
-    const { photo, isUploading } = this.state;
+    const { photo, isUploading, venueResults, dateInputStyle } = this.state;
     const datePicker = (
-      <TouchableWithoutFeedback>
+      <View style={datePickerStyle}>
         <DatePickerIOS
-          style={datePickerStyle}
           date={this.state.date}
           onDateChange={this.handleChangeDate}
         />
-      </TouchableWithoutFeedback>
+      </View>
     );
     const dateDisplay = (
       <TouchableHighlight
         style={datePlaceholder}
         onPress={() => this.displayDatePicker(true)}
       >
-        <Text style={dateStyle}>{this.state.displayDate}</Text>
+        <Text style={[dateStyle, dateInputStyle] }>{this.state.displayDate}</Text>
       </TouchableHighlight>
     );
+    const venueSuggestions = venueResults.slice(0, 4).map(result => (
+      <TouchableOpacity
+        key={result.id}
+        style={venueResult}
+        onPress={() => this.selectVenue(result)}
+      >
+        <Text style={resultText}>{result.venue_name}</Text>
+      </TouchableOpacity>
+    ));
+
     return (
       <ScrollView
         contentContainerStyle={scroll}
@@ -143,13 +183,16 @@ export default class AddShowScreen extends Component {
           value={this.state.name}
           placeholder="Show Title"
         />
-        <TextInput
-          style={textInput}
-          onChangeText={text => this.handleTextChange(text, "venue")}
-          onFocus={() => this.displayDatePicker(false)}
-          value={this.state.venue}
-          placeholder="Venue"
-        />
+        <View style={searchHolder}>
+          <TextInput
+            style={textInput}
+            onChangeText={text => this.findVenue(text)}
+            onFocus={() => this.displayDatePicker(false)}
+            value={this.state.venueInput}
+            placeholder="Venue"
+          />
+          <View style={resultsHolder}>{venueSuggestions}</View>
+        </View>
         {this.state.showDatePicker ? datePicker : dateDisplay}
         <TextInput
           style={textInput}
@@ -169,12 +212,10 @@ export default class AddShowScreen extends Component {
           <Image
             source={{ uri: photo }}
             resizeMode={"contain"}
-            style={{ flex: 1 }}
+            style={{ flex: 1, width: "90%" }}
           />
         )}
-        {isUploading && (
-          <ActivityIndicator size="large" color={accentColor} />
-        )}
+        {isUploading && <ActivityIndicator size="large" color={accentColor} />}
         <TouchableOpacity
           style={button}
           onPress={this.handleUploadImage}
@@ -197,7 +238,7 @@ const localStyles = StyleSheet.create({
     backgroundColor: secondaryColor
   },
   textInput: {
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     backgroundColor: "white",
@@ -205,14 +246,16 @@ const localStyles = StyleSheet.create({
     padding: 8
   },
   datePlaceholder: {
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     backgroundColor: "white",
     padding: 8
   },
   datePickerStyle: {
-    backgroundColor: "white"
+    backgroundColor: "white",
+    width: "90%",
+    padding: 5
   },
   dateStyle: {
     color: "#cccccc",
@@ -220,16 +263,38 @@ const localStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: accentColor,
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     borderRadius: 10,
-    justifyContent: "center"
+    justifyContent: "center",
+    marginBottom: 20
   },
   buttonText: {
     textAlign: "center",
     color: "white",
     fontSize: 24
+  },
+  resultsHolder: {
+    alignItems: "center",
+    position: "absolute",
+    width: "100%",
+    top: 59
+  },
+  venueResult: {
+    width: "90%",
+    backgroundColor: accentColor,
+    padding: 15,
+    borderColor: "white"
+  },
+  resultText: {
+    fontSize: 20,
+    color: "white"
+  },
+  searchHolder: {
+    width: "100%",
+    alignItems: "center",
+    zIndex: 10
   }
 });
 
