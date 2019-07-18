@@ -1,5 +1,5 @@
 # DragMe
-#### By  [Jacob Bogart](https://github.com/jacobogart), [Kristen Hallstrom](https://github.com/Klhalls89), [Bridgett Coyle](https://github.com/B-Coyle), [Jalena Taylor](https://github.com/jalena-penaligon)
+#### By  [Jacob Bogart](https://github.com/jacobogart), [Kristen Hallstrom](https://github.com/Klhalls89), [Bridgett Coyle](https://github.com/B-Coyle) & [Jalena Taylor](https://github.com/jalena-penaligon)
 
 ## Set-Up
 ##### 1. Install the Expo mobile app
