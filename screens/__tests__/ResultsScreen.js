@@ -10,7 +10,7 @@ describe('ResultsScreen',() => {
 
   beforeEach(() => {
     mockFetchShows = jest.fn();
-    mockShows = [{title: 'new drag'},{title: 'drag this'}]
+    mockShows = [{title: 'new drag', id: 1 },{title: 'drag this', id: 2 }]
     wrapper = shallow(<ResultsScreen
       shows = {mockShows}
       fetchShows={mockFetchShows}
@@ -47,7 +47,7 @@ describe('ResultsScreen',() => {
   });
 
     describe('mapDispatchToProps', () => {
-    it('should map ', () => {
+    it('should call dispatch with the currect thunk', () => {
       const mockDispatch = jest.fn();
 
       const props = mapDispatchToProps(mockDispatch);
