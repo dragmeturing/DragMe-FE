@@ -1,7 +1,9 @@
 import React from 'react';
-import { ResultsScreen } from '../ResultsScreen';
+import { ResultsScreen, mapStateToProps, mapDispatchToProps } from '../ResultsScreen';
 import { shallow } from 'enzyme';
-// import { fetchShows } from '../../thunks/fetchShows'
+import { fetchShows } from '../../thunks/fetchShows';
+
+jest.mock('../../thunks/fetchShows');
 
 describe('ResultsScreen',() => {
   let wrapper, mockFetchShows, mockShows;
@@ -35,7 +37,29 @@ describe('ResultsScreen',() => {
 
   describe('mapStateToProps', () => {
     it('should map state to props', () => {
-      
+      const mockState = {shows:mockShows};
+      const expected = {shows:mockShows};
+
+      const mappedProps = mapStateToProps(mockState);
+
+      expect(mappedProps).toEqual(expected)
+    });
+  });
+
+    describe('mapDispatchToProps', () => {
+    it('should map ', () => {
+      const mockDispatch = jest.fn();
+
+      const props = mapDispatchToProps(mockDispatch);
+
+      const thunk = fetchShows(mockShows);
+
+      props.fetchShows(mockShows);
+
+      expect(mockDispatch).toHaveBeenCalledWith(thunk)
+
+
+     // fetchShows: shows => dispatch(fetchShows(shows))
     });
   });
 });
