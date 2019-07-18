@@ -57,9 +57,6 @@ describe('ResultsScreen',() => {
       props.fetchShows(mockShows);
 
       expect(mockDispatch).toHaveBeenCalledWith(thunk)
-
-
-     // fetchShows: shows => dispatch(fetchShows(shows))
     });
   });
 });
