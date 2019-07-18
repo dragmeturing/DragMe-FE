@@ -1,6 +1,8 @@
 # DragMe
 #### By  [Jacob Bogart](https://github.com/jacobogart), [Kristen Hallstrom](https://github.com/Klhalls89), [Bridgett Coyle](https://github.com/B-Coyle) & [Jalena Taylor](https://github.com/jalena-penaligon)
 
+### [Back-End Respositry](https://github.com/dragmeturing/DragMe-BE)
+
 ## Set-Up
 ##### 1. Install the Expo mobile app
 [iOS](https://apps.apple.com/app/apple-store/id982107779) | [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www)
