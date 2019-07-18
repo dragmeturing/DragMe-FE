@@ -1,9 +1,9 @@
 import React from 'react';
 import { ResultsScreen, mapStateToProps, mapDispatchToProps } from '../ResultsScreen';
 import { shallow } from 'enzyme';
-import { fetchShows } from '../../thunks/fetchShows';
+import { fetchShows } from '../../redux/thunks/fetchShows';
 
-jest.mock('../../thunks/fetchShows');
+jest.mock('../../redux/thunks/fetchShows');
 
 describe('ResultsScreen',() => {
   let wrapper, mockFetchShows, mockShows;

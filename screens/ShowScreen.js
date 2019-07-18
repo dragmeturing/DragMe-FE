@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
-import { shows } from "../mockData";
 import { mainStyles } from "../constants/mainStyles";
 import { primaryColor } from "../constants/Colors";
 import { header } from "../components/header";
-import { cleanDate, cleanTime } from "../components/helper";
 import { connect } from "react-redux";
+import { cleanDate, cleanTime } from "../utilities/helper";
 
 class ShowScreen extends Component {
   render() {

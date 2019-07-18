@@ -18,7 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { postPhoto } from "../api/postPhoto";
 import { postShow } from "../api/postShow";
-import { cleanTimeJS } from "../components/helper";
+import { cleanTimeJS } from "../utilities/helper";
 import { fetchVenueData } from "../api/fetchVenueData";
 
 export default class AddShowScreen extends Component {
@@ -92,9 +92,12 @@ export default class AddShowScreen extends Component {
 
   findVenue = text => {
     this.setState({ venueInput: text });
-    fetchVenueData(text).then(venueResults => {
-      this.setState({ venueResults });
-    });
+    fetchVenueData(text)
+      .then(venueResults => {
+        this.setState({ venueResults });
+      })
+      .catch(error => console.log("google error", error));
+
   };
 
   selectVenue = result => {
