@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsScreen should match the snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`ResultsScreen should match the snapshot when there are no shows 1`] = `ShallowWrapper {}`;
