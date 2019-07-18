@@ -35,7 +35,8 @@ export default class AddShowScreen extends Component {
       displayDate: "Date",
       photo: null,
       isUploading: false,
-      venueResults: []
+      venueResults: [],
+      dateInputStyle: {}
     };
   }
 
@@ -66,7 +67,7 @@ export default class AddShowScreen extends Component {
     let displayDate = `${this.state.date.toDateString()} ${cleanTimeJS(
       this.state.date
     )}`;
-    this.setState({ date, displayDate });
+    this.setState({ date, displayDate, dateInputStyle: { color: "black" } });
   };
 
   handleUploadImage = async () => {
@@ -142,20 +143,21 @@ export default class AddShowScreen extends Component {
       resultText,
       searchHolder
     } = localStyles;
-    const { photo, isUploading, venueResults } = this.state;
+    const { photo, isUploading, venueResults, dateInputStyle } = this.state;
     const datePicker = (
-      <DatePickerIOS
-        style={datePickerStyle}
-        date={this.state.date}
-        onDateChange={this.handleChangeDate}
-      />
+      <View style={datePickerStyle}>
+        <DatePickerIOS
+          date={this.state.date}
+          onDateChange={this.handleChangeDate}
+        />
+      </View>
     );
     const dateDisplay = (
       <TouchableHighlight
         style={datePlaceholder}
         onPress={() => this.displayDatePicker(true)}
       >
-        <Text style={dateStyle}>{this.state.displayDate}</Text>
+        <Text style={[dateStyle, dateInputStyle] }>{this.state.displayDate}</Text>
       </TouchableHighlight>
     );
     const venueSuggestions = venueResults.slice(0, 4).map(result => (
@@ -210,7 +212,7 @@ export default class AddShowScreen extends Component {
           <Image
             source={{ uri: photo }}
             resizeMode={"contain"}
-            style={{ flex: 1 }}
+            style={{ flex: 1, width: "90%" }}
           />
         )}
         {isUploading && <ActivityIndicator size="large" color={accentColor} />}
@@ -236,7 +238,7 @@ const localStyles = StyleSheet.create({
     backgroundColor: secondaryColor
   },
   textInput: {
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     backgroundColor: "white",
@@ -244,14 +246,16 @@ const localStyles = StyleSheet.create({
     padding: 8
   },
   datePlaceholder: {
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     backgroundColor: "white",
     padding: 8
   },
   datePickerStyle: {
-    backgroundColor: "white"
+    backgroundColor: "white",
+    width: "90%",
+    padding: 5
   },
   dateStyle: {
     color: "#cccccc",
@@ -259,11 +263,12 @@ const localStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: accentColor,
-    width: "80%",
+    width: "90%",
     height: 50,
     margin: 10,
     borderRadius: 10,
-    justifyContent: "center"
+    justifyContent: "center",
+    marginBottom: 20
   },
   buttonText: {
     textAlign: "center",
@@ -277,7 +282,7 @@ const localStyles = StyleSheet.create({
     top: 59
   },
   venueResult: {
-    width: "80%",
+    width: "90%",
     backgroundColor: accentColor,
     padding: 15,
     borderColor: "white"
