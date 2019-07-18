@@ -8,8 +8,12 @@
     "eject": "expo eject",
     "test": "jest --watchAll"
   },
-  "jest": {
-    "preset": "jest-expo"
+ "jest": {
+    "preset": "react-native",
+    "testEnvironment": "jsdom",
+    "setupFiles": [
+      "./setupTests.js"
+    ]
   },
   "dependencies": {
     "@expo/samples": "~3.0.0",
@@ -17,27 +21,32 @@
     "@react-navigation/web": "^1.0.0-alpha.9",
     "date-and-time": "^0.8.1",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
     "expo": "^33.0.0",
     "expo-asset": "^5.0.0",
     "expo-constants": "^5.0.0",
     "expo-font": "^5.0.0",
     "expo-image-picker": "^5.0.2",
     "expo-web-browser": "^5.0.0",
+    "jest": "^24.8.0",
+    "jsdom": "^15.1.1",
     "prop-types": "^15.7.2",
-    "react": "16.8.3",
+    "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-image-picker": "^1.0.1",
+    "react-native-mock": "^0.3.1",
+    "react-native-mock-render": "^0.1.5",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
+    "react-test-renderer": "^16.8.6",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "jest-expo": "^33.0.0"
   },
   "private": true
