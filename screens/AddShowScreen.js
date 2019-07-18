@@ -18,7 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { postPhoto } from "../api/postPhoto";
 import { postShow } from "../api/postShow";
-import { cleanTimeJS } from "../components/helper";
+import { cleanTimeJS } from "../utilities/helper";
 import { fetchVenueData } from "../api/fetchVenueData";
 
 export default class AddShowScreen extends Component {

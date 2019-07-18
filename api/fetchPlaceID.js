@@ -1,4 +1,5 @@
-import { googleRoot, googleKey } from "../secrets";
+import { googleKey } from "../utilities/secrets";
+import { googleRoot } from "../utilities/url";
 
 const placeCleaner = (result) => result.predictions.map(result => ({
   venue_google_id: result.place_id,

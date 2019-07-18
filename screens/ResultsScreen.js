@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import ResultCard from "../components/ResultCard";
 import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor } from "../constants/Colors";
-import { fetchShows } from '../thunks/fetchShows';
+import { fetchShows } from '../redux/thunks/fetchShows';
 import { connect } from 'react-redux';
 import { header } from "../components/header";
 

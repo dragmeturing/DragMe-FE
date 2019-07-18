@@ -1,8 +1,7 @@
-import { BEUrl } from "./utilities";
+import { BEurl } from "../utilities/url";
 
 export const postShow = (show) => {
-  console.log('show', show);
-  const url = `${BEUrl}/show/`
+  const url = `${BEurl}/shows`
   const options = {
     method: "POST",
     headers: {

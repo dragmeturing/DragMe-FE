@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableHighlight, Text, View, ImageBackground, StyleSheet } from 'react-native';
-import { cleanDate, cleanTime } from './helper';
+import { cleanDate, cleanTime } from '../utilities/helper';
 import { withNavigation } from "react-navigation";
 
 const ResultCard = (props) => {

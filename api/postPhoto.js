@@ -1,6 +1,7 @@
+import { uploadImageURL } from "../utilities/url";
+
 export const postPhoto = uri => {
-  const serverURL = "https://dragmeuploadimage.herokuapp.com";
-  const apiUrl = `${serverURL}/upload`;
+  const apiUrl = `${uploadImageURL}/upload`;
   const uriParts = uri.split(".");
   const fileType = uriParts[uriParts.length - 1];
   const formData = new FormData();
