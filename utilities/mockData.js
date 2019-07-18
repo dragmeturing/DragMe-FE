@@ -1,3 +1,5 @@
+import { googleKey } from "./secrets";
+
 export const shows = [
   {
     id: 1,
@@ -85,5 +87,115 @@ export const venues = [
     id: 9,
     venue_name: "#VYBE",
     venue_google_id: "ChIJs4T9jil_bIcRCcy9CMKwJAA"
+  }
+];
+
+export const googlePlaceURL = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?&key=${googleKey}&input=test`;
+
+export const placeResults = {
+  predictions: [
+    {
+      description: "Sidetrack, North Halsted Street, Chicago, IL, USA",
+      id: "4372b75566ac5bde721c6535743a061b7300f666",
+      matched_substrings: [
+        {
+          length: 7,
+          offset: 0
+        }
+      ],
+      place_id: "ChIJkZf9mK_TD4gRZ3XmA5zo8Fw",
+      reference: "ChIJkZf9mK_TD4gRZ3XmA5zo8Fw",
+      structured_formatting: {
+        main_text: "Sidetrack",
+        main_text_matched_substrings: [
+          {
+            length: 7,
+            offset: 0
+          }
+        ],
+        secondary_text: "North Halsted Street, Chicago, IL, USA"
+      },
+      terms: [
+        {
+          offset: 0,
+          value: "Sidetrack"
+        },
+        {
+          offset: 11,
+          value: "North Halsted Street"
+        },
+        {
+          offset: 33,
+          value: "Chicago"
+        },
+        {
+          offset: 42,
+          value: "IL"
+        },
+        {
+          offset: 46,
+          value: "USA"
+        }
+      ],
+      types: ["bar", "point_of_interest", "establishment"]
+    },
+    {
+      description:
+        "Sidetrack Bar and Grill, East Cross Street, Ypsilanti, MI, USA",
+      id: "5cb00958e28826008ec33ae56b168eeb36c337e7",
+      matched_substrings: [
+        {
+          length: 7,
+          offset: 0
+        }
+      ],
+      place_id: "ChIJZ7r7ni-oPIgRtCnjGlIuLKA",
+      reference: "ChIJZ7r7ni-oPIgRtCnjGlIuLKA",
+      structured_formatting: {
+        main_text: "Sidetrack Bar and Grill",
+        main_text_matched_substrings: [
+          {
+            length: 7,
+            offset: 0
+          }
+        ],
+        secondary_text: "East Cross Street, Ypsilanti, MI, USA"
+      },
+      terms: [
+        {
+          offset: 0,
+          value: "Sidetrack Bar and Grill"
+        },
+        {
+          offset: 25,
+          value: "East Cross Street"
+        },
+        {
+          offset: 44,
+          value: "Ypsilanti"
+        },
+        {
+          offset: 55,
+          value: "MI"
+        },
+        {
+          offset: 59,
+          value: "USA"
+        }
+      ],
+      types: ["bar", "restaurant", "food", "point_of_interest", "establishment"]
+    }
+  ],
+  status: "OK"
+};
+
+export const cleanVenues = [
+  {
+    venue_google_id: "ChIJkZf9mK_TD4gRZ3XmA5zo8Fw",
+    venue_name: "Sidetrack"
+  },
+  {
+    venue_google_id: "ChIJZ7r7ni-oPIgRtCnjGlIuLKA",
+    venue_name: "Sidetrack Bar and Grill"
   }
 ];

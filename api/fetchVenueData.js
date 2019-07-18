@@ -2,8 +2,9 @@ import { fetchPlaceID } from "./fetchPlaceID";
 import { BEurl } from "../utilities/url";
 
 export const fetchVenueData = async (query) => {
-  const response = await fetch(`${BEurl}/venues`);
-  const venues = await response.json();
+  // const response = await fetch(`${BEurl}/venues`);
+  // const venues = await response.json();
+  let venues = [];
   let matchedVenues = venues.filter(({ venue_name }) =>
     venue_name.toLowerCase().includes(query.toLowerCase())
   );

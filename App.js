@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { rootReducer } from './reducers';
+import { rootReducer } from './redux/reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -39,10 +39,6 @@ export default function App(props) {
 
 async function loadResourcesAsync() {
   await Promise.all([
-    Asset.loadAsync([
-      require('./assets/images/robot-dev.png'),
-      require('./assets/images/robot-prod.png'),
-    ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
       ...Ionicons.font,

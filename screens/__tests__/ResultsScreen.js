@@ -3,7 +3,7 @@ import { ResultsScreen, mapStateToProps, mapDispatchToProps } from '../ResultsSc
 import { shallow } from 'enzyme';
 import { fetchShows } from '../../redux/thunks/fetchShows';
 
-jest.mock('../../thunks/fetchShows');
+jest.mock('../../redux/thunks/fetchShows');
 
 describe('ResultsScreen',() => {
   let wrapper, mockFetchShows, mockShows;

@@ -1,7 +1,7 @@
 import { googleKey } from "../utilities/secrets";
 import { googleRoot } from "../utilities/url";
 
-const placeCleaner = (result) => result.predictions.map(result => ({
+export const placeCleaner = (results) => results.predictions.map(result => ({
   venue_google_id: result.place_id,
   venue_name: result.structured_formatting.main_text
 }));
@@ -18,6 +18,5 @@ export const fetchPlaceID = (input) => {
         return response.json();
       }
     })
-    .then(result => Promise.resolve(placeCleaner(result)))
-    .catch(error => console.log('google error', error))
+    .then(results => Promise.resolve(placeCleaner(results)))
 };

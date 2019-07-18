@@ -92,9 +92,12 @@ export default class AddShowScreen extends Component {
 
   findVenue = text => {
     this.setState({ venueInput: text });
-    fetchVenueData(text).then(venueResults => {
-      this.setState({ venueResults });
-    });
+    fetchVenueData(text)
+      .then(venueResults => {
+        this.setState({ venueResults });
+      })
+      .catch(error => console.log("google error", error));
+
   };
 
   selectVenue = result => {
