@@ -19,7 +19,13 @@ export const postPhoto = uri => {
       "Content-Type": "multipart/form-data"
     }
   };
+
   return fetch(apiUrl, options)
-    .then(response => response.json())
-    .catch(error => console.log(error))
+    .then(response => {
+      if (!response.ok) {
+        throw Error("Error uploading image");
+      } else {
+        return response.json();
+      }
+    })
 };
