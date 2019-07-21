@@ -102,11 +102,11 @@ class AddShowScreen extends Component {
       .catch(error => console.log("google error", error));
   };
 
-  selectVenue = result => {
+  selectVenue = async result => {
     let selectedVenue = result
     if (!result.id) {
-      postVenue(result)
-        .then(newVenue => {selectedVenue = newVenue});
+      selectedVenue = await postVenue(result)
+        
     }
     const { venue_name, id } = selectedVenue;
     this.setState({

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import ResultCard from "../components/ResultCard";
 import { mainStyles } from "../constants/mainStyles";
-import { primaryColor, accentColor } from "../constants/Colors";
+import { primaryColor, accentColor, secondaryColor } from "../constants/Colors";
 import { fetchShows } from "../redux/thunks/fetchShows";
 import { connect } from "react-redux";
 import { header } from "../components/header";
@@ -20,7 +20,6 @@ export class ResultsScreen extends Component {
 
   render() {
     const { shows } = this.props;
-    const { container } = mainStyles;
     const { scroll } = localStyles;
     const results = shows.length ? (
       shows.map(show => <ResultCard key={show.id} data={show} />)
@@ -34,6 +33,7 @@ export class ResultsScreen extends Component {
 
 const localStyles = StyleSheet.create({
   scroll: {
+    backgroundColor: secondaryColor
   }
 });
 
