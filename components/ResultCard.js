@@ -10,7 +10,6 @@ const ResultCard = (props) => {
   const { resultText, card, header, textHolder } = localStyles;
   const date = cleanDate(attributes.date);
   const time = cleanTime(attributes.date);
-  console.log('id', id);
   return (
     <TouchableHighlight
       style={card}

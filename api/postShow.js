@@ -1,6 +1,7 @@
 import { BEurl } from "../utilities/url";
 
 export const postShow = (show) => {
+  console.log(show);
   const url = `${BEurl}/shows`
   const options = {
     method: "POST",
@@ -11,6 +12,6 @@ export const postShow = (show) => {
     body: JSON.stringify(show)
   };
   return fetch(url, options)
-    .then(response => response)
+    .then(response => response.json())
     .catch(error => console.log(error))
 }

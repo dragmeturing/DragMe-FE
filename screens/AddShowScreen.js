@@ -42,8 +42,7 @@ class AddShowScreen extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchVenues()
+  componentDidMount() {    
     this.getPermissionAsync();
   }
 
@@ -103,12 +102,11 @@ class AddShowScreen extends Component {
   };
 
   selectVenue = result => {
-    const { venue_name, venue_google_id } = result;
+    const { venue_name, id } = result;
     this.setState({
       venueInput: venue_name,
       venueResults: [],
-      venue_name,
-      venue_google_id
+      venue_id: id
     });
   };
 
@@ -119,8 +117,7 @@ class AddShowScreen extends Component {
       date,
       posterUrl,
       eventUrl,
-      venue_name,
-      venue_google_id
+      venue_id
     } = this.state;
     const show = {
       name,
@@ -128,8 +125,7 @@ class AddShowScreen extends Component {
       event_url: eventUrl,
       date,
       poster_url: posterUrl,
-      venue_name,
-      venue_google_id
+      venue_id
     };
     postShow(show).then(result => console.log(result));
   };
