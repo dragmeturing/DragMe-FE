@@ -2,18 +2,22 @@ import React from 'react';
 import { ResultsScreen, mapStateToProps, mapDispatchToProps } from '../ResultsScreen';
 import { shallow } from 'enzyme';
 import { fetchShows } from '../../redux/thunks/fetchShows';
+import { cleanVenues } from '../../utilities/mockData';
 
 jest.mock('../../redux/thunks/fetchShows');
 
 describe('ResultsScreen',() => {
-  let wrapper, mockFetchShows, mockShows;
+  let wrapper, mockFetchShows, mockFetchVenues, mockShows;
 
   beforeEach(() => {
     mockFetchShows = jest.fn();
+    mockFetchVenues = jest.fn();
     mockShows = [{title: 'new drag', id: 1 },{title: 'drag this', id: 2 }]
     wrapper = shallow(<ResultsScreen
       shows = {mockShows}
+      venues={cleanVenues}
       fetchShows={mockFetchShows}
+      fetchVenues={mockFetchVenues}
     />);
   });
 
@@ -22,10 +26,13 @@ describe('ResultsScreen',() => {
   });
 
   it('should match the snapshot when there are no shows', () => {
-     wrapper = shallow(<ResultsScreen
-      shows = {[]}
-      fetchShows={mockFetchShows}
-    />);
+     wrapper = shallow(
+       <ResultsScreen
+         shows={[]}
+         fetchShows={mockFetchShows}
+         fetchVenues={mockFetchVenues}
+       />
+     );
     expect(wrapper).toMatchSnapshot();
   });
 
