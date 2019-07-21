@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import VenuesScreen from '../screens/VenuesScreen';
 import ResultsScreen from '../screens/ResultsScreen';
 import AddShowScreen from '../screens/AddShowScreen';
 import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
@@ -14,15 +14,15 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const VenuesStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Venues: VenuesScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+VenuesStack.navigationOptions = {
+  tabBarLabel: 'Venues',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -35,7 +35,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+VenuesStack.path = '';
 
 const ShowsStack = createStackNavigator(
   {
@@ -83,7 +83,7 @@ const tabBarOptions = {
 
 const tabNavigator = createBottomTabNavigator(
   {
-    // HomeStack,
+    VenuesStack,
     ShowsStack,
     AddShowStack
   },
