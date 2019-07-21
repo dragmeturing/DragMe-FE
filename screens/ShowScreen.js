@@ -9,13 +9,15 @@ import { cleanDate, cleanTime } from "../utilities/helper";
 class ShowScreen extends Component {
   render() {
     const id = this.props.navigation.getParam("id");
+    const targetShow = this.props.shows.find(show => show.id == id);
     const {
       name,
-      venue_name,
+      venue,
       poster_url,
       description,
       date
-    } = this.props.shows.find(show => show.id === id);
+    } = targetShow.attributes;
+    const { venue_name } = venue;
     const { container } = mainStyles;
     const { resultText, card, header, textHolder, scroll } = localStyles;
     const dateToRender = cleanDate(date);
@@ -68,7 +70,7 @@ const localStyles = StyleSheet.create({
 ShowScreen.navigationOptions = header;
 
 export const mapStateToProps = state => ({
-  shows: state.shows
+  shows: state.shows,
 });
 
 export default connect(mapStateToProps)(ShowScreen);

@@ -20,8 +20,10 @@ import { postPhoto } from "../api/postPhoto";
 import { postShow } from "../api/postShow";
 import { cleanTimeJS } from "../utilities/helper";
 import { fetchVenueData } from "../api/fetchVenueData";
+import { connect } from "react-redux";
+import { fetchVenues } from "../redux/thunks/fetchVenues";
 
-export default class AddShowScreen extends Component {
+class AddShowScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +42,7 @@ export default class AddShowScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {    
     this.getPermissionAsync();
   }
 
@@ -92,21 +94,19 @@ export default class AddShowScreen extends Component {
 
   findVenue = text => {
     this.setState({ venueInput: text });
-    fetchVenueData(text)
+    fetchVenueData(text, this.props.venues)
       .then(venueResults => {
         this.setState({ venueResults });
       })
       .catch(error => console.log("google error", error));
-
   };
 
   selectVenue = result => {
-    const { venue_name, venue_google_id } = result;
+    const { venue_name, id } = result;
     this.setState({
       venueInput: venue_name,
       venueResults: [],
-      venue_name,
-      venue_google_id
+      venue_id: id
     });
   };
 
@@ -117,8 +117,7 @@ export default class AddShowScreen extends Component {
       date,
       posterUrl,
       eventUrl,
-      venue_name,
-      venue_google_id
+      venue_id
     } = this.state;
     const show = {
       name,
@@ -126,8 +125,7 @@ export default class AddShowScreen extends Component {
       event_url: eventUrl,
       date,
       poster_url: posterUrl,
-      venue_name,
-      venue_google_id
+      venue_id
     };
     postShow(show).then(result => console.log(result));
   };
@@ -160,7 +158,9 @@ export default class AddShowScreen extends Component {
         style={datePlaceholder}
         onPress={() => this.displayDatePicker(true)}
       >
-        <Text style={[dateStyle, dateInputStyle] }>{this.state.displayDate}</Text>
+        <Text style={[dateStyle, dateInputStyle]}>
+          {this.state.displayDate}
+        </Text>
       </TouchableHighlight>
     );
     const venueSuggestions = venueResults.slice(0, 4).map(result => (
@@ -302,3 +302,16 @@ const localStyles = StyleSheet.create({
 });
 
 AddShowScreen.navigationOptions = header;
+
+export const mapStateToProps = state => ({
+  venues: state.venues
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchVenues: () => dispatch(fetchVenues())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddShowScreen);

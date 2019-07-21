@@ -11,6 +11,6 @@ export const postShow = (show) => {
     body: JSON.stringify(show)
   };
   return fetch(url, options)
-    .then(response => response)
+    .then(response => response.json())
     .catch(error => console.log(error))
 }
