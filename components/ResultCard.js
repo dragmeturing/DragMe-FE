@@ -4,10 +4,13 @@ import { cleanDate, cleanTime } from '../utilities/helper';
 import { withNavigation } from "react-navigation";
 
 const ResultCard = (props) => {
-  const { id, name, venue_name, poster_url } = props.data;
+  const { id, attributes } = props.data
+  const { name, venue, poster_url } = attributes;
+  const { venue_name } = venue;
   const { resultText, card, header, textHolder } = localStyles;
-  const date = cleanDate(props.data.date);
-  const time = cleanTime(props.data.date);
+  const date = cleanDate(attributes.date);
+  const time = cleanTime(attributes.date);
+  console.log('id', id);
   return (
     <TouchableHighlight
       style={card}
