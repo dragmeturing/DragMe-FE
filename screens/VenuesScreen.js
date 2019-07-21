@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { secondaryColor, accentColor } from "../constants/Colors";
 import { header } from "../components/header";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
+import VenueCard from "../components/VenueCard";
 
 class VenuesScreen extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class VenuesScreen extends Component {
     const { venues } = this.props;
     const { scroll } = localStyles;
     const results = venues.length ? (
-      venues.map(venue => <Text key={venue.id}>{venue.venue_name}</Text>)
+      venues.map(venue => <VenueCard key={venue.id} data={venue}/>)
     ) : (
       <ActivityIndicator size="large" color={accentColor} />
     );
