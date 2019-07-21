@@ -13,7 +13,6 @@ import VenueCard from "../components/VenueCard";
 class VenuesScreen extends Component {
   constructor(props) {
     super(props);
-    
   }
   
   componentDidMount() {
