@@ -22,6 +22,7 @@ import { cleanTimeJS } from "../utilities/helper";
 import { fetchVenueData } from "../api/fetchVenueData";
 import { connect } from "react-redux";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
+import { postVenue } from "../api/postVenue";
 
 class AddShowScreen extends Component {
   constructor(props) {
@@ -102,7 +103,12 @@ class AddShowScreen extends Component {
   };
 
   selectVenue = result => {
-    const { venue_name, id } = result;
+    let selectedVenue = result
+    if (!result.id) {
+      postVenue(result)
+        .then(newVenue => {selectedVenue = newVenue});
+    }
+    const { venue_name, id } = selectedVenue;
     this.setState({
       venueInput: venue_name,
       venueResults: [],
@@ -165,11 +171,11 @@ class AddShowScreen extends Component {
     );
     const venueSuggestions = venueResults.slice(0, 4).map(result => (
       <TouchableOpacity
-        key={result.id}
+        key={result.id || result.venue_google_id}
         style={venueResult}
         onPress={() => this.selectVenue(result)}
       >
-        <Text style={resultText}>{result.venue_name}</Text>
+        <Text style={resultText}>{result.venue_description || result.venue_name}</Text>
       </TouchableOpacity>
     ));
 
