@@ -2,6 +2,7 @@ import { googleKey } from "../utilities/secrets";
 import { googleRoot } from "../utilities/url";
 
 export const placeCleaner = (results) => results.predictions.map(result => ({
+  venue_description: result.description,
   venue_google_id: result.place_id,
   venue_name: result.structured_formatting.main_text
 }));

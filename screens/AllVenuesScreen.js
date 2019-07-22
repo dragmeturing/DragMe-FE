@@ -1,28 +1,31 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
-import ResultCard from "../components/ResultCard";
-import { mainStyles } from "../constants/mainStyles";
-import { primaryColor, accentColor, secondaryColor } from "../constants/Colors";
-import { fetchShows } from "../redux/thunks/fetchShows";
+import {
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator, Text
+} from "react-native";
 import { connect } from "react-redux";
+import { secondaryColor, accentColor } from "../constants/Colors";
 import { header } from "../components/header";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
+import VenueCard from "../components/VenueCard";
 
-export class ResultsScreen extends Component {
+class AllVenuesScreen extends Component {
   constructor(props) {
     super(props);
   }
-
+  
   componentDidMount() {
-    this.props.fetchShows();
-    this.props.fetchVenues();
+    if (!this.props.venues.length) {
+      this.props.fetchVenues();
+    }
   }
-
+  
   render() {
-    const { shows } = this.props;
+    const { venues } = this.props;
     const { scroll } = localStyles;
-    const results = shows.length ? (
-      shows.map(show => <ResultCard key={show.id} data={show} />)
+    const results = venues.length ? (
+      venues.map(venue => <VenueCard key={venue.id} data={venue}/>)
     ) : (
       <ActivityIndicator size="large" color={accentColor} />
     );
@@ -31,24 +34,23 @@ export class ResultsScreen extends Component {
   }
 }
 
+AllVenuesScreen.navigationOptions = header;
+
 const localStyles = StyleSheet.create({
   scroll: {
     backgroundColor: secondaryColor
   }
 });
 
-ResultsScreen.navigationOptions = header;
-
 export const mapStateToProps = state => ({
-  shows: state.shows
+  venues: state.venues
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchShows: () => dispatch(fetchShows()),
   fetchVenues: () => dispatch(fetchVenues())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResultsScreen);
+)(AllVenuesScreen);
