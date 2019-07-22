@@ -7,6 +7,7 @@ import { fetchShows } from "../redux/thunks/fetchShows";
 import { connect } from "react-redux";
 import { header } from "../components/header";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
+import { fetchPerformers } from "../redux/thunks/fetchPerformers";
 
 export class ResultsScreen extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class ResultsScreen extends Component {
   componentDidMount() {
     this.props.fetchShows();
     this.props.fetchVenues();
+    this.props.fetchPerformers();
   }
 
   render() {
@@ -45,7 +47,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchShows: () => dispatch(fetchShows()),
-  fetchVenues: () => dispatch(fetchVenues())
+  fetchVenues: () => dispatch(fetchVenues()),
+  fetchPerformers: () => dispatch(fetchPerformers())
 });
 
 export default connect(

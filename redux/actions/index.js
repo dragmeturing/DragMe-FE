@@ -6,7 +6,12 @@ export const getShows = (shows) => ({
 export const getVenues = (venues) => ({
   type: 'GET_VENUES',
   venues
-})
+});
+
+export const getPerformers = (performers) => ({
+  type: 'GET_PERFORMERS',
+  performers
+});
 
 export const isLoading = (bool) => ({
   type: 'IS_LOADING',

@@ -8,6 +8,7 @@ import AddShowScreen from '../screens/AddShowScreen';
 import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
 import ShowScreen from '../screens/ShowScreen';
 import VenueScreen from '../screens/VenueScreen';
+import AllPerformersScreen from '../screens/AllPerformersScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -48,12 +49,30 @@ ShowsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={"ios-star"}
+      name={"ios-microphone"}
     />
   )
 };
 
 ShowsStack.path = '';
+
+const PerformersStack = createStackNavigator(
+  {
+    AllPerformers: AllPerformersScreen,
+    // Performer: PerformerScreen
+  },
+  config
+);
+
+PerformersStack.navigationOptions = {
+  tabBarLabel: "Performers",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={"ios-star"} />
+  )
+};
+
+PerformersStack.path = "";
+
 
 const AddShowStack = createStackNavigator(
   {
@@ -83,9 +102,11 @@ const tabNavigator = createBottomTabNavigator(
   {
     VenuesStack,
     ShowsStack,
+    PerformersStack,
     AddShowStack
   },
-  { tabBarOptions }
+  { tabBarOptions,
+  initialRouteName: 'ShowsStack' }
 );
 
 tabNavigator.path = '';
