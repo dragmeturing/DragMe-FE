@@ -1,13 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
-import VenuesScreen from '../screens/VenuesScreen';
+import AllVenuesScreen from '../screens/AllVenuesScreen';
 import ResultsScreen from '../screens/ResultsScreen';
 import AddShowScreen from '../screens/AddShowScreen';
 import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
 import ShowScreen from '../screens/ShowScreen';
+import VenueScreen from '../screens/VenueScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -16,7 +16,9 @@ const config = Platform.select({
 
 const VenuesStack = createStackNavigator(
   {
-    Venues: VenuesScreen,
+    AllVenues: AllVenuesScreen,
+    Venue: VenueScreen,
+    Show: ShowScreen
   },
   config
 );

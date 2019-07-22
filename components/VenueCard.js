@@ -33,20 +33,27 @@ class VenueCard extends Component {
       iconStyle,
       innerCard
     } = localStyles;
-    const { venue_name } = this.props.data;
+    const { venue_name, id } = this.props.data;
     const { icon, formatted_address } = this.state.details;
     const addressParts = formatted_address ? formatted_address.split(",") : [];
     return (
       <TouchableHighlight
         style={card}
-        onPress={() => props.navigation.navigate("Venue", { id, details })}
+        onPress={() =>
+          this.props.navigation.navigate("Venue", {
+            id,
+            details: this.state.details
+          })
+        }
       >
         <View style={innerCard}>
           <Image source={{ uri: icon }} style={iconStyle} />
           <View style={textHolder}>
             <Text style={[resultText, header]}>{venue_name}</Text>
             <Text style={resultText}>{addressParts[0]}</Text>
-            <Text style={resultText}>{addressParts[1] + addressParts[2]}</Text>
+            <Text style={resultText}>{`${addressParts[1]}, ${
+              addressParts[2]
+            }`}</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -73,7 +80,7 @@ const localStyles = StyleSheet.create({
     width: "77%",
     justifyContent: "space-around",
     padding: 5,
-    backgroundColor: primaryColor,
+    backgroundColor: primaryColor
   },
   iconStyle: {
     height: 75,

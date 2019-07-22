@@ -10,7 +10,7 @@ import { header } from "../components/header";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
 import VenueCard from "../components/VenueCard";
 
-class VenuesScreen extends Component {
+class AllVenuesScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,7 +34,7 @@ class VenuesScreen extends Component {
   }
 }
 
-VenuesScreen.navigationOptions = header;
+AllVenuesScreen.navigationOptions = header;
 
 const localStyles = StyleSheet.create({
   scroll: {
@@ -53,4 +53,4 @@ export const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(VenuesScreen);
+)(AllVenuesScreen);
