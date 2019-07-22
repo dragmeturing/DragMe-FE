@@ -9,6 +9,8 @@ import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
 import ShowScreen from '../screens/ShowScreen';
 import VenueScreen from '../screens/VenueScreen';
 import AllPerformersScreen from '../screens/AllPerformersScreen';
+import UserScreen from '../screens/UserScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -74,21 +76,23 @@ PerformersStack.navigationOptions = {
 PerformersStack.path = "";
 
 
-const AddShowStack = createStackNavigator(
+const UserStack = createStackNavigator(
   {
+    User: UserScreen,
     AddShow: AddShowScreen,
+    Login: LoginScreen
   },
   config
 );
 
-AddShowStack.navigationOptions = {
-  tabBarLabel: 'Add Show',
+UserStack.navigationOptions = {
+  tabBarLabel: 'User',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={'ios-add'} />
+    <TabBarIcon focused={focused} name={'ios-person'} />
   ),
 };
 
-AddShowStack.path = '';
+UserStack.path = '';
 
 const tabBarOptions = {
   activeTintColor: accentColor,
@@ -103,7 +107,7 @@ const tabNavigator = createBottomTabNavigator(
     VenuesStack,
     ShowsStack,
     PerformersStack,
-    AddShowStack
+    UserStack
   },
   { tabBarOptions,
   initialRouteName: 'ShowsStack' }

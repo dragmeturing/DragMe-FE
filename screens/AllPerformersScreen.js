@@ -32,7 +32,9 @@ class AllPerformersScreen extends Component {
 const localStyles = StyleSheet.create({
   scroll: {
     backgroundColor: secondaryColor,
-    flexGrow: 1
+    flexGrow: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });
 
