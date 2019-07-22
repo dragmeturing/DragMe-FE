@@ -10,6 +10,7 @@ import {
 import { header } from "../components/header";
 import { secondaryColor, accentColor } from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { fetchInsta } from "../api/fetchInsta";
 
 
 class UserScreen extends Component {
@@ -17,12 +18,17 @@ class UserScreen extends Component {
     super(props);
   }
 
+  handleInstaLogin = () => {
+    fetchInsta()
+      .then(result => console.log(result))
+  }
+
   render() {
     const { page, button, buttonText } = localStyles;
     return (
       <View style={page}>
         <Text>LOGIN</Text>
-        <TouchableOpacity style={button}>
+        <TouchableOpacity style={button} onPress={this.handleInstaLogin}>
           <Text style={buttonText}>Login With Instagram</Text>
           <Ionicons
             name={'logo-instagram'}

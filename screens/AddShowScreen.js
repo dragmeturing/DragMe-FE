@@ -39,11 +39,14 @@ class AddShowScreen extends Component {
       photo: null,
       isUploading: false,
       venueResults: [],
+      performerResults: [],
+      performer_ids: [],
+      performer_names: [],
       dateInputStyle: {}
     };
   }
 
-  componentDidMount() {    
+  componentDidMount() {
     this.getPermissionAsync();
   }
 
@@ -102,17 +105,33 @@ class AddShowScreen extends Component {
       .catch(error => console.log("google error", error));
   };
 
+  findPerformers = text => {
+    this.setState({ performerInput: text });
+    const performerResults = this.props.performers.filter(performer =>
+      performer.name.includes(text)
+    );
+    this.setState({ performerResults });
+  };
+
   selectVenue = async result => {
-    let selectedVenue = result
+    let selectedVenue = result;
     if (!result.id) {
-      selectedVenue = await postVenue(result)
-        
+      selectedVenue = await postVenue(result);
     }
     const { venue_name, id } = selectedVenue;
     this.setState({
       venueInput: venue_name,
       venueResults: [],
       venue_id: id
+    });
+  };
+
+  selectPerformer = result => {
+    this.setState({
+      performerInput: "",
+      performerResults: [],
+      performer_names: [...this.state.performer_names, result.name],
+      performer_ids: [...this.state.performer_ids, result.id]
     });
   };
 
@@ -148,9 +167,18 @@ class AddShowScreen extends Component {
       resultsHolder,
       venueResult,
       resultText,
-      searchHolder
+      searchHolder,
+      performerNamesHolder,
+      pleaseText,
+      performerText
     } = localStyles;
-    const { photo, isUploading, venueResults, dateInputStyle } = this.state;
+    const {
+      photo,
+      isUploading,
+      venueResults,
+      dateInputStyle,
+      performerResults
+    } = this.state;
     const datePicker = (
       <View style={datePickerStyle}>
         <DatePickerIOS
@@ -175,8 +203,24 @@ class AddShowScreen extends Component {
         style={venueResult}
         onPress={() => this.selectVenue(result)}
       >
-        <Text style={resultText}>{result.venue_description || result.venue_name}</Text>
+        <Text style={resultText}>
+          {result.venue_description || result.venue_name}
+        </Text>
       </TouchableOpacity>
+    ));
+
+    const performerSuggestions = performerResults.slice(0, 4).map(result => (
+      <TouchableOpacity
+        key={result.id}
+        style={venueResult}
+        onPress={() => this.selectPerformer(result)}
+      >
+        <Text style={resultText}>{result.name}</Text>
+      </TouchableOpacity>
+    ));
+
+    const performerNames = this.state.performer_names.map((name, i) => (
+      <Text key={i} style={performerText}>{name}</Text>
     ));
 
     return (
@@ -203,6 +247,25 @@ class AddShowScreen extends Component {
           <View style={resultsHolder}>{venueSuggestions}</View>
         </View>
         {this.state.showDatePicker ? datePicker : dateDisplay}
+        <View style={searchHolder}>
+          <TextInput
+            style={textInput}
+            onChangeText={text => this.findPerformers(text)}
+            onFocus={() => this.displayDatePicker(false)}
+            value={this.state.performerInput}
+            placeholder="Performer Name"
+          />
+          <View style={resultsHolder}>{performerSuggestions}</View>
+        </View>
+        <View style={performerNamesHolder}>
+          <ScrollView>
+            {performerNames.length ? (
+              performerNames
+            ) : (
+              <Text style={pleaseText}>Please add a performer</Text>
+            )}
+          </ScrollView>
+        </View>
         <TextInput
           style={textInput}
           onChangeText={text => this.handleTextChange(text, "description")}
@@ -304,13 +367,32 @@ const localStyles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     zIndex: 10
+  },
+  performerNamesHolder: {
+    backgroundColor: primaryColor,
+    width: "90%",
+    height: 150,
+    overflow: "scroll",
+    paddingHorizontal: 15
+  },
+  pleaseText: {
+    textAlign: "center",
+    fontSize: 24,
+    marginVertical: 10,
+    color: "white"
+  },
+  performerText: {
+    margin: 10,
+    fontSize: 25,
+    color: "white"
   }
 });
 
 AddShowScreen.navigationOptions = header;
 
 export const mapStateToProps = state => ({
-  venues: state.venues
+  venues: state.venues,
+  performers: state.performers
 });
 
 export const mapDispatchToProps = dispatch => ({

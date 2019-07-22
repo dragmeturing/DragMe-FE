@@ -78,8 +78,8 @@ PerformersStack.path = "";
 
 const UserStack = createStackNavigator(
   {
-    User: UserScreen,
     AddShow: AddShowScreen,
+    User: UserScreen,
     Login: LoginScreen
   },
   config

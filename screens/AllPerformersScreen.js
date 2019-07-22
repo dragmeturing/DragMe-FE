@@ -12,7 +12,7 @@ class AllPerformersScreen extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.performers)
+    // console.log(this.props.performers)
   }
   
   
