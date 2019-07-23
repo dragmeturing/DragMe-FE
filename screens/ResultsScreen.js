@@ -25,7 +25,6 @@ export class ResultsScreen extends Component {
   }
 
   handleTextChange = (text) => {
-    console.log('in handle text change', text)
     this.setState({input: text})
     this.filterResults(text)
   }
