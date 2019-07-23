@@ -16,13 +16,15 @@ import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { fetchVenueShows } from "../api/fetchVenueShows";
 import ShowGalleryItem from "../components/ShowGalleryItem";
+import { fetchVenueDetails } from "../api/fetchVenueDetails";
 
 class VenueScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       viewHours: false,
-      shows: []
+      shows: [],
+      details: {}
     };
   }
 
@@ -30,15 +32,23 @@ class VenueScreen extends Component {
     const id = this.props.navigation.getParam("id");
     fetchVenueShows(id)
       .then(result => this.setState({ shows: result.shows}))
+    if (!this.props.navigation.getParam("details")) {
+      fetchVenueDetails(this.props.navigation.getParam('venue_google_id')).then(
+        ({ result }) => this.setState({ details: result })
+      );
+    } else {
+      this.setState({
+        details: this.props.navigation.getParam("details")
+      });
+    }
   }
   
 
   render() {
     const id = this.props.navigation.getParam("id");
-    const details = this.props.navigation.getParam("details");
     const targetVenue = this.props.venues.find(venue => venue.id == id);
     const { venue_name } = targetVenue;
-    const { viewHours, shows } = this.state;
+    const { viewHours, shows, details } = this.state;
     const {
       geometry,
       formatted_address,
@@ -46,7 +56,7 @@ class VenueScreen extends Component {
       formatted_phone_number,
       website
     } = details;
-    const addressParts = formatted_address.split(",");
+    const addressParts = formatted_address ? formatted_address.split(",") : [];
     const { container } = mainStyles;
     const {
       resultText,
@@ -86,59 +96,65 @@ class VenueScreen extends Component {
         {viewHours && <View style={hoursTextHolder}>{hoursText}</View>}
       </View>
     ) : null;
+
+    const detailsComponent = (
+      <View style={detailsHolder}>
+        <Text style={resultText}>{addressParts[0]}</Text>
+        <Text style={resultText}>{`${addressParts[1]}, ${
+          addressParts[2]
+        }`}</Text>
+        <View style={linkHolder}>
+          <Ionicons
+            name={"ios-globe"}
+            size={24}
+            color={accentColor}
+            style={iconStyle}
+          />
+          <Text style={linkText} onPress={() => Linking.openURL(website)}>
+            Website
+          </Text>
+          <Ionicons
+            name={"ios-call"}
+            size={24}
+            color={accentColor}
+            style={iconStyle}
+          />
+          <Text
+            style={linkText}
+            onPress={() => Linking.openURL(`tel:${formatted_phone_number}`)}
+          >
+            {formatted_phone_number}
+          </Text>
+        </View>
+        {hoursContainer}
+      </View>
+    );
+    const mapComponent = (
+      <MapView
+        style={{ height: 300, width: "90%" }}
+        provider={PROVIDER_GOOGLE}
+        region={{
+          latitude: geometry ? +geometry.location.lat : 1,
+          longitude: geometry ? +geometry.location.lng : 1,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude: geometry ? +geometry.location.lat : 1,
+            longitude: geometry ? +geometry.location.lng : 1
+          }}
+        />
+      </MapView>
+    );
+
     return (
       <ScrollView contentContainerStyle={scroll}>
         <Text style={[resultText, header]}>{venue_name}</Text>
-        <MapView
-          style={{ height: 300, width: "90%" }}
-          provider={PROVIDER_GOOGLE}
-          region={{
-            latitude: +geometry.location.lat,
-            longitude: +geometry.location.lng,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01
-          }}
-        >
-          <Marker
-            coordinate={{
-              latitude: +geometry.location.lat,
-              longitude: +geometry.location.lng
-            }}
-          />
-        </MapView>
-        <View style={detailsHolder}>
-          <Text style={resultText}>{addressParts[0]}</Text>
-          <Text style={resultText}>{`${addressParts[1]}, ${
-            addressParts[2]
-          }`}</Text>
-          <View style={linkHolder}>
-            <Ionicons
-              name={"ios-globe"}
-              size={24}
-              color={accentColor}
-              style={iconStyle}
-            />
-            <Text style={linkText} onPress={() => Linking.openURL(website)}>
-              Website
-            </Text>
-            <Ionicons
-              name={"ios-call"}
-              size={24}
-              color={accentColor}
-              style={iconStyle}
-            />
-            <Text
-              style={linkText}
-              onPress={() => Linking.openURL(`tel:${formatted_phone_number}`)}
-            >
-              {formatted_phone_number}
-            </Text>
-          </View>
-          {hoursContainer}
-        </View>
-        <View>
-          {showCards}
-        </View>
+        {details.geometry && mapComponent}
+        {details.formatted_address && detailsComponent}
+        <View>{showCards}</View>
       </ScrollView>
     );
   }

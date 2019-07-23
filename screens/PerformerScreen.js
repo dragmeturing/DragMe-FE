@@ -4,21 +4,13 @@ import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor } from "../constants/Colors";
 import { header } from "../components/header";
 import { connect } from "react-redux";
-import { cleanDate, cleanTime } from "../utilities/helper";
 
-class ShowScreen extends Component {
+class PerformerScreen extends Component {
   render() {
     const id = this.props.navigation.getParam("id");
-    const targetShow = this.props.shows.find(show => show.id == id);
-    const {
-      name,
-      venue,
-      poster_url,
-      description,
-      date
-    } = targetShow.attributes;
-    const { venue_name, venue_google_id } = venue;
+    const targetPerformer = this.props.performers.find(performer => performer.id == id);
     const { container } = mainStyles;
+    const { name, photo } = targetPerformer;
     const {
       resultText,
       card,
@@ -27,31 +19,16 @@ class ShowScreen extends Component {
       scroll,
       venueText
     } = localStyles;
-    const dateToRender = cleanDate(date);
-    const time = cleanTime(date);
     return (
       <ScrollView contentContainerStyle={[container, scroll]}>
         <View style={textHolder}>
           <Text style={[resultText, header]}>{name}</Text>
-          <Text style={[resultText]}>
-            {dateToRender} at {time}
-          </Text>
-          <Text
-            style={[resultText, venueText]}
-            onPress={() => this.props.navigation.navigate("Venue", {
-              id: venue.id,
-              venue_google_id
-            })}
-          >
-            {venue_name}
-          </Text>
         </View>
         <Image
-          source={{ uri: poster_url }}
+          source={{ uri: photo }}
           resizeMode={"contain"}
           style={{ flex: 1 }}
         />
-        <Text style={[resultText]}>{description}</Text>
       </ScrollView>
     );
   }
@@ -82,14 +59,14 @@ const localStyles = StyleSheet.create({
   },
   venueText: {
     color: accentColor,
-    textDecorationLine: 'underline'
+    textDecorationLine: "underline"
   }
 });
 
-ShowScreen.navigationOptions = header;
+PerformerScreen.navigationOptions = header;
 
 export const mapStateToProps = state => ({
-  shows: state.shows
+  performers: state.performers
 });
 
-export default connect(mapStateToProps)(ShowScreen);
+export default connect(mapStateToProps)(PerformerScreen);
