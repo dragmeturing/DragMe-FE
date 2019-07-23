@@ -24,7 +24,7 @@ const ResultCard = (props) => {
         <View style={textHolder}>
           <Text style={[resultText, header]}>{name}</Text>
           <Text style={[resultText]}>
-            {date} - {time}
+            {date} at {time}
           </Text>
           <Text style={[resultText]}>{venue_name}</Text>
         </View>

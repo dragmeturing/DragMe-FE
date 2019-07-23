@@ -8,6 +8,10 @@ import AddShowScreen from '../screens/AddShowScreen';
 import { primaryColor, accentColor, secondaryColor } from '../constants/Colors';
 import ShowScreen from '../screens/ShowScreen';
 import VenueScreen from '../screens/VenueScreen';
+import AllPerformersScreen from '../screens/AllPerformersScreen';
+import UserScreen from '../screens/UserScreen';
+import LoginScreen from '../screens/LoginScreen';
+import PerformerScreen from '../screens/PerformerScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -38,7 +42,8 @@ VenuesStack.path = '';
 const ShowsStack = createStackNavigator(
   {
     Results: ResultsScreen,
-    Show: ShowScreen
+    Show: ShowScreen,
+    Venue: VenueScreen
   },
   config
 );
@@ -48,28 +53,48 @@ ShowsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={"ios-star"}
+      name={"ios-microphone"}
     />
   )
 };
 
 ShowsStack.path = '';
 
-const AddShowStack = createStackNavigator(
+const PerformersStack = createStackNavigator(
   {
-    AddShow: AddShowScreen,
+    AllPerformers: AllPerformersScreen,
+    Performer: PerformerScreen
   },
   config
 );
 
-AddShowStack.navigationOptions = {
-  tabBarLabel: 'Add Show',
+PerformersStack.navigationOptions = {
+  tabBarLabel: "Performers",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={'ios-add'} />
+    <TabBarIcon focused={focused} name={"ios-star"} />
+  )
+};
+
+PerformersStack.path = "";
+
+
+const UserStack = createStackNavigator(
+  {
+    User: UserScreen,
+    AddShow: AddShowScreen,
+    Login: LoginScreen
+  },
+  config
+);
+
+UserStack.navigationOptions = {
+  tabBarLabel: 'User',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={'ios-person'} />
   ),
 };
 
-AddShowStack.path = '';
+UserStack.path = '';
 
 const tabBarOptions = {
   activeTintColor: accentColor,
@@ -83,9 +108,11 @@ const tabNavigator = createBottomTabNavigator(
   {
     VenuesStack,
     ShowsStack,
-    AddShowStack
+    PerformersStack,
+    UserStack
   },
-  { tabBarOptions }
+  { tabBarOptions,
+  initialRouteName: 'ShowsStack' }
 );
 
 tabNavigator.path = '';
