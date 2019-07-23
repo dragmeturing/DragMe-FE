@@ -11,6 +11,7 @@ import VenueScreen from '../screens/VenueScreen';
 import AllPerformersScreen from '../screens/AllPerformersScreen';
 import UserScreen from '../screens/UserScreen';
 import LoginScreen from '../screens/LoginScreen';
+import PerformerScreen from '../screens/PerformerScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -62,7 +63,7 @@ ShowsStack.path = '';
 const PerformersStack = createStackNavigator(
   {
     AllPerformers: AllPerformersScreen,
-    // Performer: PerformerScreen
+    Performer: PerformerScreen
   },
   config
 );

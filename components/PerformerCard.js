@@ -31,9 +31,9 @@ class PerformerCard extends Component {
     return (
       <TouchableHighlight
         style={card}
-        // onPress={() =>
-        //   this.props.navigation.navigate("Performer", { id })
-        // }
+        onPress={() =>
+          this.props.navigation.navigate("Performer", { id })
+        }
       >
         <View style={innerCard}>
           <Image source={{ uri: photo }} style={iconStyle} />
@@ -59,7 +59,8 @@ const localStyles = StyleSheet.create({
     marginVertical: 3,
     height: 255,
     width: '45%',
-    backgroundColor: accentColor
+    backgroundColor: accentColor,
+    margin: 5
   },
   textHolder: {
     height: 80,

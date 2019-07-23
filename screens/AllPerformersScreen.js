@@ -10,11 +10,6 @@ class AllPerformersScreen extends Component {
     super(props);
     
   }
-
-  componentDidMount() {
-    // console.log(this.props.performers)
-  }
-  
   
   render() {
     const { scroll } = localStyles;
@@ -34,7 +29,9 @@ const localStyles = StyleSheet.create({
     backgroundColor: secondaryColor,
     flexGrow: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingVertical: 10
   }
 });
 
