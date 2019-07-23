@@ -11,11 +11,17 @@ import { header } from "../components/header";
 import { secondaryColor, accentColor } from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { fetchInsta } from "../api/fetchInsta";
+import InstagramLogin from "react-native-instagram-login";
+import { instagramClientID } from "../utilities/secrets";
 
 
 class UserScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      token: ''
+    }
+    
   }
 
   handleInstaLogin = () => {
@@ -28,15 +34,27 @@ class UserScreen extends Component {
     return (
       <View style={page}>
         <Text>LOGIN</Text>
-        <TouchableOpacity style={button} onPress={this.handleInstaLogin}>
+        <TouchableOpacity
+          style={button}
+          onPress={() => this.instagramLogin.show()}
+        >
           <Text style={buttonText}>Login With Instagram</Text>
           <Ionicons
-            name={'logo-instagram'}
+            name={"logo-instagram"}
             size={32}
             style={{ marginBottom: -3, marginLeft: 5 }}
             color={"white"}
           />
         </TouchableOpacity>
+        <InstagramLogin
+          ref={ref => (this.instagramLogin = ref)}
+          clientId={instagramClientID}
+          redirectUrl="http://dragme.us-east-2.elasticbeanstalk.com/auth/instagram/callback"
+          onLoginSuccess={token => {
+            console.log(token), this.setState({ token });
+          }}
+          onLoginFailure={data => console.log(data)}
+        />
       </View>
     );
   }
