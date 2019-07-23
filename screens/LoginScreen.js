@@ -22,14 +22,12 @@ class UserScreen extends Component {
 
   handleInstaLogin = token => {
     this.props.fetchLogin(token, this.props.navigation.navigate);
-    // this.props.navigation.navigate("User");
   };
 
   render() {
     const { page, button, buttonText } = localStyles;
     return (
       <View style={page}>
-        <Text>LOGIN</Text>
         <TouchableOpacity
           style={button}
           onPress={() => this.instagramLogin.show()}
@@ -58,7 +56,8 @@ const localStyles = StyleSheet.create({
   page: {
     backgroundColor: secondaryColor,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: 'center'
   },
   button: {
     backgroundColor: accentColor,

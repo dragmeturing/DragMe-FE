@@ -6,13 +6,11 @@ export const fetchLogin = (token, navigate) => {
     try {
       dispatch(isLoading(true));
       const response = await postPerformer(token);
-      console.log("response", response);
       if (!response.ok) {
         throw Error(response.statusText);
       }
       const user = await response.json();
       navigate('User')
-      console.log("user", user);
       dispatch(loginUser(user));
       dispatch(isLoading(false));
     } catch (error) {

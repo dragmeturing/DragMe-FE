@@ -32,7 +32,7 @@ class PerformerCard extends Component {
       <TouchableHighlight
         style={card}
         // onPress={() =>
-        //   this.props.navigation.navigate("Venue", { id })
+        //   this.props.navigation.navigate("Performer", { id })
         // }
       >
         <View style={innerCard}>
