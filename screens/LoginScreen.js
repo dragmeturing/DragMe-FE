@@ -10,7 +10,6 @@ import {
 import { header } from "../components/header";
 import { secondaryColor, accentColor } from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import { fetchInsta } from "../api/fetchInsta";
 import InstagramLogin from "react-native-instagram-login";
 import { instagramClientID } from "../utilities/secrets";
 import { fetchLogin } from "../redux/thunks/fetchLogin";
