@@ -22,3 +22,8 @@ export const setError = (error) => ({
   type: 'SET_ERROR',
   error
 });
+
+export const loginUser = (user) => ({
+  type: 'LOGIN_USER',
+  user
+});

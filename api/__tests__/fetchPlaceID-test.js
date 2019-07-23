@@ -33,7 +33,7 @@ describe("fetchPlaceID", () => {
     try {
       await fetchPlaceID("test");
     } catch (error) {
-      expect(error.message).toEqual('Failed to find place ID');
+      expect(error.message).toEqual("Failed to find place ID");
     }
   });
 

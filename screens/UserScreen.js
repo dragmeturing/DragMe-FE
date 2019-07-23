@@ -16,10 +16,11 @@ class UserScreen extends Component {
   }
 
   render() {
+    console.log(this.props.user)
     const { page } = localStyles;
     return (
       <View style={page}>
-        <Text>USER</Text>
+        <Text>{this.props.user.name}</Text>
       </View>
     );
   }

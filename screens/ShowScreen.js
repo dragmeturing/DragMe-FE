@@ -17,7 +17,7 @@ class ShowScreen extends Component {
       description,
       date
     } = targetShow.attributes;
-    const { venue_name } = venue;
+    const { venue_name, venue_google_id } = venue;
     const { container } = mainStyles;
     const { resultText, card, header, textHolder, scroll } = localStyles;
     const dateToRender = cleanDate(date);
@@ -29,7 +29,15 @@ class ShowScreen extends Component {
           <Text style={[resultText]}>
             {dateToRender} - {time}
           </Text>
-          <Text style={[resultText]}>{venue_name}</Text>
+          <Text
+            style={[resultText]}
+            onPress={() => this.props.navigation.navigate("Venue", {
+              id: venue.id,
+              venue_google_id
+            })}
+          >
+            {venue_name}
+          </Text>
         </View>
         <Image
           source={{ uri: poster_url }}
@@ -70,7 +78,7 @@ const localStyles = StyleSheet.create({
 ShowScreen.navigationOptions = header;
 
 export const mapStateToProps = state => ({
-  shows: state.shows,
+  shows: state.shows
 });
 
 export default connect(mapStateToProps)(ShowScreen);

@@ -41,7 +41,8 @@ VenuesStack.path = '';
 const ShowsStack = createStackNavigator(
   {
     Results: ResultsScreen,
-    Show: ShowScreen
+    Show: ShowScreen,
+    Venue: VenueScreen
   },
   config
 );

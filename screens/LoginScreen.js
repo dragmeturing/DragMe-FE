@@ -13,21 +13,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { fetchInsta } from "../api/fetchInsta";
 import InstagramLogin from "react-native-instagram-login";
 import { instagramClientID } from "../utilities/secrets";
-
+import { fetchLogin } from "../redux/thunks/fetchLogin";
 
 class UserScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      token: ''
-    }
-    
   }
 
-  handleInstaLogin = () => {
-    fetchInsta()
-      .then(result => console.log(result))
-  }
+  handleInstaLogin = token => {
+    this.props.fetchLogin(token, this.props.navigation.navigate);
+    // this.props.navigation.navigate("User");
+  };
 
   render() {
     const { page, button, buttonText } = localStyles;
@@ -50,9 +46,7 @@ class UserScreen extends Component {
           ref={ref => (this.instagramLogin = ref)}
           clientId={instagramClientID}
           redirectUrl="http://dragme.us-east-2.elasticbeanstalk.com/auth/instagram/callback"
-          onLoginSuccess={token => {
-            console.log(token), this.setState({ token });
-          }}
+          onLoginSuccess={token => this.handleInstaLogin(token)}
           onLoginFailure={data => console.log(data)}
         />
       </View>
@@ -64,7 +58,7 @@ const localStyles = StyleSheet.create({
   page: {
     backgroundColor: secondaryColor,
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center"
   },
   button: {
     backgroundColor: accentColor,
@@ -73,8 +67,8 @@ const localStyles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     justifyContent: "center",
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
     marginBottom: 20
   },
   buttonText: {
@@ -85,9 +79,16 @@ const localStyles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  // user: state.user
+  user: state.user
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchLogin: (token, navigate) => dispatch(fetchLogin(token, navigate))
 });
 
 UserScreen.navigationOptions = header;
 
-export default connect(mapStateToProps)(UserScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserScreen);
