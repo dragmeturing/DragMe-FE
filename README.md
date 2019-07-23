@@ -5,8 +5,7 @@
 
 ## Set-Up
 ##### 1. Install the Expo mobile app
-[iOS](https://apps.apple.com/app/apple-store/id982107779) | [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www)
-
+[iOS](https://apps.apple.com/app/apple-store/id982107779)
 ##### 2. Globaly instal the Expo CLI
 ```npm install -g expo-cli```
 ##### 3. Clone the FE Repo
