@@ -1,37 +1,62 @@
-import React from 'react';
-import { TouchableHighlight, Text, View, ImageBackground, StyleSheet } from 'react-native';
-import { cleanDate, cleanTime } from '../utilities/helper';
+import React, { Component } from "react";
+import {
+  TouchableHighlight,
+  Text,
+  View,
+  ImageBackground,
+  StyleSheet
+} from "react-native";
+import { cleanDate, cleanTime } from "../utilities/helper";
 import { withNavigation } from "react-navigation";
 
-const ResultCard = (props) => {
-  const { id, attributes } = props.data
-  const { name, venue, poster_url } = attributes;
-  const { venue_name } = venue;
-  const { resultText, card, header, textHolder } = localStyles;
-  const date = cleanDate(attributes.date);
-  const time = cleanTime(attributes.date);
-  return (
-    <TouchableHighlight
-      style={card}
-      onPress={() => props.navigation.navigate("Show", { id })}
-    >
-      <ImageBackground
-        source={{ uri: poster_url }}
-        style={{ width: "100%", height: "100%" }}
-        imageStyle={{ opacity: 0.7 }}
-        blurRadius={7}
+class ResultCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      venue: {}
+    };
+  }
+
+  componentDidMount() {
+    if (!this.props.data.attributes.venue) {
+      const id = this.props.data.attributes.venue_id;
+      const targetVenue = this.props.venues.find(venue => venue.id == id);
+      this.setState({ venue: targetVenue});
+    }
+  }
+
+  render() {
+    const { attributes } = this.props.data;
+    const id = this.props.data.id || attributes.id
+    const { name, poster_url } = attributes;
+    const venue = attributes.venue || this.state.venue
+    const { venue_name } = venue;
+    const { resultText, card, header, textHolder } = localStyles;
+    const date = cleanDate(attributes.date);
+    const time = cleanTime(attributes.date);
+    return (
+      <TouchableHighlight
+        style={card}
+        onPress={() => this.props.navigation.navigate("Show", { id })}
       >
-        <View style={textHolder}>
-          <Text style={[resultText, header]}>{name}</Text>
-          <Text style={[resultText]}>
-            {date} at {time}
-          </Text>
-          <Text style={[resultText]}>{venue_name}</Text>
-        </View>
-      </ImageBackground>
-    </TouchableHighlight>
-  );
-};
+        <ImageBackground
+          source={{ uri: poster_url }}
+          style={{ width: "100%", height: "100%" }}
+          imageStyle={{ opacity: 0.7 }}
+          blurRadius={7}
+        >
+          <View style={textHolder}>
+            <Text style={[resultText, header]}>{name}</Text>
+            <Text style={[resultText]}>
+              {date} at {time}
+            </Text>
+            <Text style={[resultText]}>{venue_name}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableHighlight>
+    );
+  }
+}
 
 const localStyles = StyleSheet.create({
   resultText: {
@@ -54,5 +79,5 @@ const localStyles = StyleSheet.create({
     padding: 10
   }
 });
-  
+
 export default withNavigation(ResultCard);

@@ -47,6 +47,7 @@ export class ResultsScreen extends Component {
     const { filteredShows } = this.state
     const showsToDisplay = filteredShows.length ? filteredShows : shows
     const { scroll, textInput, inputArea, iconStyle } = localStyles;
+
     const results = showsToDisplay.length ? (
       showsToDisplay.map(show => <ResultCard key={show.id} data={show} />)
     ) : (

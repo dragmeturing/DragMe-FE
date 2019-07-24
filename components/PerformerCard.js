@@ -7,7 +7,6 @@ import {
   StyleSheet
 } from "react-native";
 import { withNavigation } from "react-navigation";
-import { fetchVenueDetails } from "../api/fetchVenueDetails";
 import { primaryColor, secondaryColor, accentColor } from "../constants/Colors";
 
 class PerformerCard extends Component {

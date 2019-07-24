@@ -22,6 +22,7 @@ const VenuesStack = createStackNavigator(
   {
     AllVenues: AllVenuesScreen,
     Venue: VenueScreen,
+    Performer: PerformerScreen,
     Show: ShowScreen
   },
   config
@@ -43,6 +44,7 @@ const ShowsStack = createStackNavigator(
   {
     Results: ResultsScreen,
     Show: ShowScreen,
+    Performer: PerformerScreen,
     Venue: VenueScreen
   },
   config
@@ -63,7 +65,9 @@ ShowsStack.path = '';
 const PerformersStack = createStackNavigator(
   {
     AllPerformers: AllPerformersScreen,
-    Performer: PerformerScreen
+    Performer: PerformerScreen,
+    Show: ShowScreen,
+    Venue: VenueScreen
   },
   config
 );
