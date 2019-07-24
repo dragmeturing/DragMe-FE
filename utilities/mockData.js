@@ -1,3 +1,5 @@
+import { googleKey } from "./secrets";
+
 export const shows = [
   {
     id: 1,
@@ -88,7 +90,7 @@ export const venues = [
   }
 ];
 
-export const googlePlaceURL = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?&key=AIzaSyDHKnndIp7I8oymrxO0sDwpQUdZvfN1sqc&input=test`;
+export const googlePlaceURL = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?&key=${googleKey}&input=test`;
 
 export const placeResults = {
   predictions: [
