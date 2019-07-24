@@ -5,8 +5,23 @@ import { primaryColor, accentColor } from "../constants/Colors";
 import { header } from "../components/header";
 import { connect } from "react-redux";
 import { cleanDate, cleanTime } from "../utilities/helper";
+import PerformerCard from "../components/PerformerCard";
+import { fetchShowDetails } from "../api/fetchShowDetails";
 
 class ShowScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      performers: []
+    }
+  }
+  
+  componentDidMount() {
+    const id = this.props.navigation.getParam("id");
+    fetchShowDetails(id)
+      .then(performers => this.setState({performers}))
+  }
+  
   render() {
     const id = this.props.navigation.getParam("id");
     const targetShow = this.props.shows.find(show => show.id == id);
@@ -25,10 +40,14 @@ class ShowScreen extends Component {
       header,
       textHolder,
       scroll,
-      venueText
+      venueText,
+      performerHolder
     } = localStyles;
     const dateToRender = cleanDate(date);
     const time = cleanTime(date);
+    const performerCards = this.state.performers.map(performer => (
+      <PerformerCard key={performer.id} data={performer}/>
+    )) 
     return (
       <ScrollView contentContainerStyle={[container, scroll]}>
         <View style={textHolder}>
@@ -52,6 +71,10 @@ class ShowScreen extends Component {
           style={{ flex: 1 }}
         />
         <Text style={[resultText]}>{description}</Text>
+        <Text style={[resultText, header]}>Performers</Text>
+        <View style={performerHolder}>
+          {performerCards}
+        </View>
       </ScrollView>
     );
   }
@@ -83,6 +106,12 @@ const localStyles = StyleSheet.create({
   venueText: {
     color: accentColor,
     textDecorationLine: 'underline'
+  },
+  performerHolder: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingVertical: 10
   }
 });
 
