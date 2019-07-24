@@ -1,5 +1,3 @@
-import { googleKey } from "./secrets";
-
 export const shows = [
   {
     id: 1,
