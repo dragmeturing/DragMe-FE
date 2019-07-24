@@ -7,17 +7,19 @@ import { cleanVenues } from '../../utilities/mockData';
 jest.mock('../../redux/thunks/fetchShows');
 
 describe('ResultsScreen',() => {
-  let wrapper, mockFetchShows, mockFetchVenues, mockShows;
+  let wrapper, mockFetchShows, mockFetchVenues, mockShows, mockFetchPerformers;
 
   beforeEach(() => {
     mockFetchShows = jest.fn();
     mockFetchVenues = jest.fn();
+    mockFetchPerformers = jest.fn();
     mockShows = [{title: 'new drag', id: 1 },{title: 'drag this', id: 2 }]
     wrapper = shallow(<ResultsScreen
       shows = {mockShows}
       venues={cleanVenues}
       fetchShows={mockFetchShows}
       fetchVenues={mockFetchVenues}
+      fetchPerformers={mockFetchPerformers}
     />);
   });
 
@@ -31,6 +33,7 @@ describe('ResultsScreen',() => {
          shows={[]}
          fetchShows={mockFetchShows}
          fetchVenues={mockFetchVenues}
+         fetchPerformers={mockFetchPerformers}
        />
      );
     expect(wrapper).toMatchSnapshot();

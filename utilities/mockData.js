@@ -191,10 +191,13 @@ export const placeResults = {
 
 export const cleanVenues = [
   {
+    venue_description: "Sidetrack, North Halsted Street, Chicago, IL, USA",
     venue_google_id: "ChIJkZf9mK_TD4gRZ3XmA5zo8Fw",
     venue_name: "Sidetrack"
   },
   {
+    venue_description:
+      "Sidetrack Bar and Grill, East Cross Street, Ypsilanti, MI, USA",
     venue_google_id: "ChIJZ7r7ni-oPIgRtCnjGlIuLKA",
     venue_name: "Sidetrack Bar and Grill"
   }
