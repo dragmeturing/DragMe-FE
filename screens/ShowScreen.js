@@ -13,15 +13,16 @@ class ShowScreen extends Component {
     super(props);
     this.state = {
       performers: []
-    }
+    };
   }
-  
+
   componentDidMount() {
     const id = this.props.navigation.getParam("id");
-    fetchShowDetails(id)
-      .then(performers => this.setState({performers}))
+    fetchShowDetails(id).then(performers => {
+      this.setState({ performers });
+    });
   }
-  
+
   render() {
     const id = this.props.navigation.getParam("id");
     const targetShow = this.props.shows.find(show => show.id == id);
@@ -41,13 +42,14 @@ class ShowScreen extends Component {
       textHolder,
       scroll,
       venueText,
-      performerHolder
+      performerHolder,
+      descriptionHolder
     } = localStyles;
     const dateToRender = cleanDate(date);
     const time = cleanTime(date);
     const performerCards = this.state.performers.map(performer => (
-      <PerformerCard key={performer.id} data={performer}/>
-    )) 
+      <PerformerCard key={performer.id} data={performer} />
+    ));
     return (
       <ScrollView contentContainerStyle={[container, scroll]}>
         <View style={textHolder}>
@@ -57,10 +59,12 @@ class ShowScreen extends Component {
           </Text>
           <Text
             style={[resultText, venueText]}
-            onPress={() => this.props.navigation.navigate("Venue", {
-              id: venue.id,
-              venue_google_id
-            })}
+            onPress={() =>
+              this.props.navigation.navigate("Venue", {
+                id: venue.id,
+                venue_google_id
+              })
+            }
           >
             {venue_name}
           </Text>
@@ -68,13 +72,13 @@ class ShowScreen extends Component {
         <Image
           source={{ uri: poster_url }}
           resizeMode={"contain"}
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: '100%' }}
         />
-        <Text style={[resultText]}>{description}</Text>
-        <Text style={[resultText, header]}>Performers</Text>
-        <View style={performerHolder}>
-          {performerCards}
+        <View style={descriptionHolder}>
+          <Text style={[resultText]}>{description}</Text>
         </View>
+        <Text style={[resultText, header]}>Performers</Text>
+        <View style={performerHolder}>{performerCards}</View>
       </ScrollView>
     );
   }
@@ -83,7 +87,8 @@ class ShowScreen extends Component {
 const localStyles = StyleSheet.create({
   scroll: {
     flex: 0,
-    height: "150%"
+    height: "150%",
+    alignItems: 'center'
   },
   resultText: {
     color: "white",
@@ -104,14 +109,21 @@ const localStyles = StyleSheet.create({
     padding: 10
   },
   venueText: {
+    fontSize: 30,
     color: accentColor,
-    textDecorationLine: 'underline'
+    textDecorationLine: "underline"
   },
   performerHolder: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
     paddingVertical: 10
+  },
+  descriptionHolder: {
+    backgroundColor: primaryColor,
+    width: '90%',
+    marginVertical: 10,
+    padding: 10
   }
 });
 
