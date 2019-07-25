@@ -16,12 +16,22 @@ class VenueCard extends Component {
     this.state = {
       details: {}
     };
-  }
+  };
 
   componentDidMount() {
     fetchVenueDetails(this.props.data.venue_google_id).then(({ result }) =>
       this.setState({ details: result })
     );
+  };
+
+  determineIcon = (icon) => {
+    if(icon.includes('bar')){
+      return require('../assets/images/cocktail.png')
+    } else if(icon.includes('restaurant')) {
+      return require('../assets/images/silverware.png')
+    } else {
+      return require('../assets/images/theatre.png')
+    }        
   }
 
   render() {
@@ -36,6 +46,8 @@ class VenueCard extends Component {
     const { venue_name, id } = this.props.data;
     const { icon, formatted_address } = this.state.details;
     const addressParts = formatted_address ? formatted_address.split(",") : [];
+    const iconPath = icon ? this.determineIcon(icon) : require('../assets/images/cocktail.png');
+
     return (
       <TouchableHighlight
         style={card}
@@ -47,7 +59,7 @@ class VenueCard extends Component {
         }
       >
         <View style={innerCard}>
-          <Image source={{ uri: icon }} style={iconStyle} />
+          <Image source={iconPath} style={iconStyle} />
           <View style={textHolder}>
             <Text style={[resultText, header]}>{venue_name}</Text>
             <Text style={resultText}>{addressParts[0]}</Text>
@@ -95,3 +107,5 @@ const localStyles = StyleSheet.create({
 });
 
 export default withNavigation(VenueCard);
+
+
