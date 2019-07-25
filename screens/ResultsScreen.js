@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ScrollView, StyleSheet, ActivityIndicator, View, TextInput, Text, TouchableOpacity } from "react-native";
 import ResultCard from "../components/ResultCard";
-import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor, secondaryColor } from "../constants/Colors";
 import { fetchShows } from "../redux/thunks/fetchShows";
 import { connect } from "react-redux";
@@ -80,7 +79,8 @@ export class ResultsScreen extends Component {
 
 const localStyles = StyleSheet.create({
   scroll: {
-    backgroundColor: "white"
+    backgroundColor: "white",
+    paddingBottom: 50
   },
   textInput: {
     width: "80%",

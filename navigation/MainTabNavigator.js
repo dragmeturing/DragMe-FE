@@ -86,7 +86,8 @@ const UserStack = createStackNavigator(
   {
     User: UserScreen,
     AddShow: AddShowScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    Show: ShowScreen
   },
   config
 );
