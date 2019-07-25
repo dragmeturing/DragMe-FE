@@ -190,6 +190,7 @@ class AddShowScreen extends Component {
     const datePicker = (
       <View style={datePickerStyle}>
         <DatePickerIOS
+          minuteInterval={5}
           date={this.state.date}
           onDateChange={this.handleChangeDate}
         />
