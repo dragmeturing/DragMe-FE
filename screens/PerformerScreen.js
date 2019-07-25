@@ -46,10 +46,10 @@ class PerformerScreen extends Component {
     const {
       resultText,
       header,
-      textHolder,
       scroll,
       socialHolder,
-      iconStyle
+      iconStyle,
+      descriptionHolder
     } = localStyles;
 
     const showCards = this.state.shows.map(show => (
@@ -90,9 +90,9 @@ class PerformerScreen extends Component {
         <Image
           source={{ uri: photo }}
           resizeMode={"contain"}
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: '100%' }}
         />
-        <View style={textHolder}>
+        <View style={descriptionHolder}>
           <Text style={[resultText]}>{bio}</Text>
         </View>
         <Text style={[resultText, header]}>Shows</Text>
@@ -106,7 +106,8 @@ const localStyles = StyleSheet.create({
   scroll: {
     flex: 0,
     height: "150%",
-    paddingVertical: 30
+    paddingVertical: 30,
+    alignItems: 'center'
   },
   resultText: {
     color: "white",
@@ -132,6 +133,12 @@ const localStyles = StyleSheet.create({
   },
   iconStyle: {
     margin: 30
+  },
+  descriptionHolder: {
+    backgroundColor: primaryColor,
+    width: "90%",
+    marginVertical: 10,
+    padding: 10
   }
 });
 

@@ -17,6 +17,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { fetchVenueShows } from "../api/fetchVenueShows";
 import ShowGalleryItem from "../components/ShowGalleryItem";
 import { fetchVenueDetails } from "../api/fetchVenueDetails";
+import ResultCard from "../components/ResultCard";
 
 class VenueScreen extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class VenueScreen extends Component {
       iconStyle
     } = localStyles;
 
-    const showCards = shows.map(show => <ShowGalleryItem key={show.id} data={show}/>)
+    const showCards = shows.map(show => <ResultCard key={show.id} data={{attributes: show}} venues={this.props.venues}/>)
 
     const hoursText = opening_hours
       ? opening_hours.weekday_text.map((string, i) => (
@@ -131,7 +132,7 @@ class VenueScreen extends Component {
     );
     const mapComponent = (
       <MapView
-        style={{ height: 300, width: "90%" }}
+        style={{ height: 300, width: "90%", marginTop: 10 }}
         provider={PROVIDER_GOOGLE}
         region={{
           latitude: geometry ? +geometry.location.lat : 1,
@@ -154,7 +155,8 @@ class VenueScreen extends Component {
         <Text style={[resultText, header]}>{venue_name}</Text>
         {details.geometry && mapComponent}
         {details.formatted_address && detailsComponent}
-        <View>{showCards}</View>
+        <Text style={[resultText, header]}>Shows</Text>
+        {showCards}
       </ScrollView>
     );
   }
@@ -165,6 +167,7 @@ const localStyles = StyleSheet.create({
     backgroundColor: secondaryColor,
     alignItems: 'center',
     justifyContent: 'space-around',
+    paddingVertical: 10
   },
   resultText: {
     color: "white",
@@ -186,7 +189,8 @@ const localStyles = StyleSheet.create({
   },
   detailsHolder: {
     backgroundColor: primaryColor,
-    width: "90%"
+    width: "90%",
+    marginBottom: 10
   },
   hoursTextStyle: {
     color: "white",

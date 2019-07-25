@@ -42,7 +42,7 @@ class ResultCard extends Component {
         <ImageBackground
           source={{ uri: poster_url }}
           style={{ width: "100%", height: "100%" }}
-          imageStyle={{ opacity: 0.7 }}
+          imageStyle={{ opacity: 0.6 }}
           blurRadius={7}
         >
           <View style={textHolder}>
@@ -70,7 +70,8 @@ const localStyles = StyleSheet.create({
   card: {
     marginVertical: 3,
     height: 150,
-    backgroundColor: "black"
+    backgroundColor: "black",
+    width: '100%'
   },
   textHolder: {
     display: "flex",
