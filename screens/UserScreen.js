@@ -4,8 +4,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { header } from "../components/header";
 import { secondaryColor, primaryColor, accentColor } from "../constants/Colors";
 import { logoutUser } from "../redux/actions";
-import RCTNetworking from 'RCTNetworking';
-
+import RCTNetworking from "RCTNetworking";
 
 class UserScreen extends Component {
   constructor(props) {
@@ -51,10 +50,7 @@ class UserScreen extends Component {
         >
           <Text style={buttonText}>Add A Show</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={button}
-          onPress={this.logout}
-        >
+        <TouchableOpacity style={button} onPress={this.logout}>
           <Text style={buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -116,8 +112,7 @@ const mapDispatchToProps = dispatch => ({
 
 UserScreen.navigationOptions = header;
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserScreen);
-
-
- 
-  
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserScreen);

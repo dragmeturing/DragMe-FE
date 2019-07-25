@@ -3,6 +3,11 @@ export const getShows = (shows) => ({
   shows
 });
 
+export const addShow = (show) => ({
+  type: 'ADD_SHOW',
+  show
+});
+
 export const getVenues = (venues) => ({
   type: 'GET_VENUES',
   venues

@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
-import { mainStyles } from "../constants/mainStyles";
 import { primaryColor, accentColor, secondaryColor } from "../constants/Colors";
 import { header } from "../components/header";
 import * as ImagePicker from "expo-image-picker";
@@ -23,10 +22,12 @@ import { fetchVenueData } from "../api/fetchVenueData";
 import { connect } from "react-redux";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
 import { postVenue } from "../api/postVenue";
+import { addShow } from "../redux/actions";
 
 class AddShowScreen extends Component {
   constructor(props) {
     super(props);
+    this.scrollRef = React.createRef();
     this.state = {
       name: "",
       venueInput: "",
@@ -82,17 +83,15 @@ class AddShowScreen extends Component {
       allowsEditing: true,
       base64: true
     });
-
     if (!result.cancelled) {
       postPhoto(result.uri)
-        .then(result =>
+        .then(result => {
           this.setState({
-            posterUrl: result.photoUrl,
+            photo: result.photoUrl,
             isUploading: false
-          })
-        )
+          });
+        })
         .catch(error => console.log("error", error));
-      this.setState({ photo: result.uri, isUploading: false });
     }
   };
 
@@ -127,11 +126,12 @@ class AddShowScreen extends Component {
   };
 
   selectPerformer = result => {
+    const dataToSubit = result.id || result.name;
     this.setState({
       performerInput: "",
       performerResults: [],
       performer_names: [...this.state.performer_names, result.name],
-      performer_ids: [...this.state.performer_ids, result.id]
+      performer_ids: [...this.state.performer_ids, dataToSubit]
     });
   };
 
@@ -140,19 +140,27 @@ class AddShowScreen extends Component {
       name,
       description,
       date,
-      posterUrl,
+      photo,
       eventUrl,
-      venue_id
+      venue_id,
+      performer_ids
     } = this.state;
     const show = {
       name,
       description,
       event_url: eventUrl,
       date,
-      poster_url: posterUrl,
-      venue_id
+      poster_url: photo,
+      venue_id,
+      performers: performer_ids
     };
-    postShow(show).then(result => console.log(result));
+    console.log("show", show);
+    postShow(show).then(result => this.handleNewShow(result.data));
+  };
+
+  handleNewShow = show => {
+    this.props.addShow(show);
+    this.props.navigation.navigate("Show", { id: show.id });
   };
 
   render() {
@@ -182,6 +190,7 @@ class AddShowScreen extends Component {
     const datePicker = (
       <View style={datePickerStyle}>
         <DatePickerIOS
+          minuteInterval={5}
           date={this.state.date}
           onDateChange={this.handleChangeDate}
         />
@@ -220,7 +229,9 @@ class AddShowScreen extends Component {
     ));
 
     const performerNames = this.state.performer_names.map((name, i) => (
-      <Text key={i} style={performerText}>{name}</Text>
+      <Text key={i} style={performerText}>
+        {name}
+      </Text>
     ));
 
     return (
@@ -228,6 +239,7 @@ class AddShowScreen extends Component {
         contentContainerStyle={scroll}
         overScrollMode="never"
         bounces={false}
+        ref={this.scrollRef}
       >
         <TextInput
           style={textInput}
@@ -247,7 +259,7 @@ class AddShowScreen extends Component {
           <View style={resultsHolder}>{venueSuggestions}</View>
         </View>
         {this.state.showDatePicker ? datePicker : dateDisplay}
-        <View style={searchHolder}>
+        <View style={[searchHolder, { zIndex: 9 }]}>
           <TextInput
             style={textInput}
             onChangeText={text => this.findPerformers(text)}
@@ -269,14 +281,28 @@ class AddShowScreen extends Component {
         <TextInput
           style={textInput}
           onChangeText={text => this.handleTextChange(text, "description")}
-          onFocus={() => this.displayDatePicker(false)}
+          onFocus={() => {
+            this.scrollRef.current.scrollTo({
+              x: 0,
+              y: 300,
+              animated: true
+            });
+            this.displayDatePicker(false);
+          }}
           value={this.state.description}
           placeholder="Description"
         />
         <TextInput
           style={textInput}
           onChangeText={text => this.handleTextChange(text, "eventUrl")}
-          onFocus={() => this.displayDatePicker(false)}
+          onFocus={() => {
+            this.scrollRef.current.scrollTo({
+              x: 0,
+              y: 300,
+              animated: true
+            });
+            this.displayDatePicker(false);
+          }}
           value={this.state.eventURL}
           placeholder="Event Website/Link"
         />
@@ -396,7 +422,8 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchVenues: () => dispatch(fetchVenues())
+  fetchVenues: () => dispatch(fetchVenues()),
+  addShow: show => dispatch(addShow(show))
 });
 
 export default connect(
