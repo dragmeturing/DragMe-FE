@@ -107,6 +107,10 @@ const tabBarOptions = {
   style: {
     backgroundColor: primaryColor
   },
+  labelStyle: {
+    fontWeight: '700',
+    fontSize: 14
+  }
 };
 
 const tabNavigator = createBottomTabNavigator(
