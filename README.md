@@ -1,6 +1,8 @@
 # DragMe
 #### By  [Jacob Bogart](https://github.com/jacobogart), [Kristen Hallstrom](https://github.com/Klhalls89), [Bridgett Coyle](https://github.com/B-Coyle) & [Jalena Taylor](https://github.com/jalena-penaligon)
 
+A React Native project connecting local drag fans with local drag shows. Through a dynamic UI and an intuitive form, we create links between venues, shows and performers, giving a well needed technical infrastructure to a booming new entertainment medium. 
+
 ### [Back-End Respositry](https://github.com/jalena-penaligon/DragMe-BE)
 
 ## Features
