@@ -22,7 +22,7 @@ import { fetchVenueData } from "../api/fetchVenueData";
 import { connect } from "react-redux";
 import { fetchVenues } from "../redux/thunks/fetchVenues";
 import { postVenue } from "../api/postVenue";
-import { addShow } from "../redux/actions";
+import { addShow, addVenue } from "../redux/actions";
 
 class AddShowScreen extends Component {
   constructor(props) {
@@ -116,6 +116,7 @@ class AddShowScreen extends Component {
     let selectedVenue = result;
     if (!result.id) {
       selectedVenue = await postVenue(result);
+      this.props.addVenue(selectedVenue);
     }
     const { venue_name, id } = selectedVenue;
     this.setState({
@@ -154,7 +155,6 @@ class AddShowScreen extends Component {
       venue_id,
       performers: performer_ids
     };
-    console.log("show", show);
     postShow(show).then(result => this.handleNewShow(result.data));
   };
 
@@ -206,9 +206,9 @@ class AddShowScreen extends Component {
         </Text>
       </TouchableHighlight>
     );
-    const venueSuggestions = venueResults.slice(0, 4).map(result => (
+    const venueSuggestions = venueResults.slice(0, 4).map((result, i) => (
       <TouchableOpacity
-        key={result.id || result.venue_google_id}
+        key={result.id || result.venue_google_id || i}
         style={venueResult}
         onPress={() => this.selectVenue(result)}
       >
@@ -423,7 +423,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchVenues: () => dispatch(fetchVenues()),
-  addShow: show => dispatch(addShow(show))
+  addShow: show => dispatch(addShow(show)),
+  addVenue: venue => dispatch(addVenue(venue))
 });
 
 export default connect(
