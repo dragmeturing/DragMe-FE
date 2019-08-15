@@ -13,6 +13,11 @@ export const getVenues = (venues) => ({
   venues
 });
 
+export const addVenue = (venue) => ({
+  type: 'ADD_VENUE',
+  venue
+});
+
 export const getPerformers = (performers) => ({
   type: 'GET_PERFORMERS',
   performers

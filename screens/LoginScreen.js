@@ -20,6 +20,7 @@ class UserScreen extends Component {
   }
 
   handleInstaLogin = token => {
+    console.log(token);
     this.props.fetchLogin(token, this.props.navigation.navigate);
   };
 
