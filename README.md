@@ -3,6 +3,8 @@
 
 A React Native project connecting local drag fans with local drag shows. Through a dynamic UI and an intuitive form, we create links between venues, shows and performers, giving a well needed technical infrastructure to a booming new entertainment medium. 
 
+### [Demo Video](https://youtu.be/UABb0AuEIwI)
+
 ### [Back-End Respositry](https://github.com/jalena-penaligon/DragMe-BE)
 
 ## Features
